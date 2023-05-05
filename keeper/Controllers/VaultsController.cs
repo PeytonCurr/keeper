@@ -30,4 +30,18 @@ public class VaultsController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+  [HttpGet("{vaultId}")]
+  public ActionResult<Keep> GetOne(int vaultId)
+  {
+    try
+    {
+      Vault vault = _vaultsService.GetOne(vaultId);
+      return Ok(vault);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 }

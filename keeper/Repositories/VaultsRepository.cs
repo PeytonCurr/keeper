@@ -23,4 +23,22 @@ values
     vaultData.Id = Id;
     return vaultData;
   }
+
+  internal Vault GetOne(int vaultId)
+  {
+    string sql = @"
+SELECT
+v.*,
+acct.*
+FROM vaults v
+JOIN accounts acct ON v.CreatorId = acct.id
+WHERE v.id = @vaultId
+;";
+    Vault vault = _db.Query<Vault, Account, Vault>(sql, (v, acct) =>
+    {
+      v.Creator = acct;
+      return v;
+    }, new { vaultId }).FirstOrDefault();
+    return vault;
+  }
 }

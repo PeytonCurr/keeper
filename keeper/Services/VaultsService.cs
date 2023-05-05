@@ -16,4 +16,11 @@ public class VaultsService
     vault.UpdatedAt = DateTime.Now;
     return vault;
   }
+
+  internal Vault GetOne(int vaultId)
+  {
+    Vault vault = _repo.GetOne(vaultId);
+    if (vault == null) throw new Exception($"The Vault at ID: {vaultId} does not exist!");
+    return vault;
+  }
 }
