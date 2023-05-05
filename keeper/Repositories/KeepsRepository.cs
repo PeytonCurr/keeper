@@ -23,4 +23,8 @@ values
     keepData.Id = id;
     return keepData;
   }
+
+  internal List<Keep> GetAll()
+  {
+  }
 }
