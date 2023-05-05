@@ -22,4 +22,26 @@ values
     vkData.Id = id;
     return vkData;
   }
+
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
+  {
+    string sql = @"
+  SELECT
+  k.*,
+  COUNT(vk.keepId) AS kept,
+  vk.id AS VaultKeepId,
+  acct.*
+  FROM keeps k
+  JOIN accounts acct ON acct.id = k.creatorId
+  LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+  WHERE vk.vaultId = @vaultId
+  GROUP BY (k.id)
+;";
+    List<VaultedKeep> keeps = _db.Query<VaultedKeep, Account, VaultedKeep>(sql, (k, acct) =>
+    {
+      k.Creator = acct;
+      return k;
+    }, new { vaultId }).ToList();
+    return keeps;
+  }
 }

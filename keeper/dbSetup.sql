@@ -47,3 +47,14 @@ CREATE TABLE
         keepId INT NOT NULL,
         FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
+
+SELECT
+    k.*,
+    COUNT(vk.keepId) AS kept,
+    vk.id AS VaultKeepId,
+    acct.*
+FROM keeps k
+    JOIN accounts acct ON acct.id = k.creatorId
+    LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+WHERE vk.vaultId = 1
+GROUP BY (k.id)

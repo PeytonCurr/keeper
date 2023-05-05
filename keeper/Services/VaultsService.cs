@@ -3,10 +3,12 @@ namespace keeper.Services;
 public class VaultsService
 {
   private readonly VaultsRepository _repo;
+  private readonly VaultKeepsService _vaultKeepsService;
 
-  public VaultsService(VaultsRepository repo)
+  public VaultsService(VaultsRepository repo, VaultKeepsService vaultKeepsService)
   {
     _repo = repo;
+    _vaultKeepsService = vaultKeepsService;
   }
 
   internal Vault CreateVault(Vault vaultData)
@@ -47,5 +49,13 @@ public class VaultsService
     _repo.DeleteVault(vaultId);
 
     return $"You have Deleted the Vault Named: {vault.Name}";
+  }
+
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId, string userId)
+  {
+    Vault vault = GetOne(vaultId);
+    if (vault.IsPrivate == true && vault.CreatorId != userId) throw new Exception($"You are not Authorized to view the Vault ID: {vaultId}");
+    List<VaultedKeep> keeps = _vaultKeepsService.GetKeepsInVault(vaultId);
+    return keeps;
   }
 }

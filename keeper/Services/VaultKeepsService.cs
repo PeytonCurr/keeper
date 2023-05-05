@@ -16,4 +16,10 @@ public class VaultKeepsService
     vk.UpdatedAt = DateTime.Now;
     return vk;
   }
+
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
+  {
+    List<VaultedKeep> keeps = _repo.GetKeepsInVault(vaultId);
+    return keeps;
+  }
 }
