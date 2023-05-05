@@ -16,7 +16,6 @@ CREATE TABLE
         description VARCHAR(500) NOT NULL,
         img VARCHAR(255) NOT NULL,
         views BIGINT,
-        kept INT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         creatorId VARCHAR(255) NOT NULL,
