@@ -38,4 +38,14 @@ public class VaultsService
 
     return vault;
   }
+
+  internal string DeleteVault(int vaultId, string userId)
+  {
+    Vault vault = GetOne(vaultId);
+    if (vault.CreatorId != userId) throw new Exception($"You are not Authorized to delete the Vault named: {vault.Name}");
+
+    _repo.DeleteVault(vaultId);
+
+    return $"You have Deleted the Vault Named: {vault.Name}";
+  }
 }

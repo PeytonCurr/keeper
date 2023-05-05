@@ -53,4 +53,10 @@ WHERE id = @id
 ;";
     _db.Execute(sql, vault);
   }
+
+  internal void DeleteVault(int vaultId)
+  {
+    string sql = @"DELETE FROM vaults WHERE id = @vaultId LIMIT 1;";
+    _db.Execute(sql, new { vaultId });
+  }
 }
