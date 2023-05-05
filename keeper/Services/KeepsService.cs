@@ -16,4 +16,10 @@ public class KeepsService
     keep.UpdatedAt = DateTime.Now;
     return keep;
   }
+
+  internal List<Keep> GetAll()
+  {
+    List<Keep> keeps = _repo.GetAll();
+    return keeps;
+  }
 }
