@@ -43,4 +43,28 @@ values
     }).ToList();
     return keeps;
   }
+
+  internal Keep GetOne(int keepId)
+  {
+    string sql = @"
+SELECT
+k.*,
+COUNT(vk.keepId) AS kept,
+acct.*
+FROM keeps k
+JOIN accounts acct ON acct.id = k.creatorId
+LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+WHERE k.id = @keepId
+GROUP BY (k.id)
+;";
+
+    Keep keep = _db.Query<Keep, Profile, Keep>(sql, (k, acct) =>
+    {
+      k.Creator = acct;
+      return k;
+    }, new { keepId }).FirstOrDefault();
+    return keep;
+  }
+
+
 }
