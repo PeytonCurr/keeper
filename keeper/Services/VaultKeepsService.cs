@@ -8,4 +8,12 @@ public class VaultKeepsService
   {
     _repo = repo;
   }
+
+  internal VaultKeep CreateVK(VaultKeep vkData)
+  {
+    VaultKeep vk = _repo.CreateVK(vkData);
+    vk.CreatedAt = DateTime.Now;
+    vk.UpdatedAt = DateTime.Now;
+    return vk;
+  }
 }

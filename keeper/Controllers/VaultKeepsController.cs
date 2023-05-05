@@ -12,4 +12,21 @@ public class VaultKeepsController : ControllerBase
     _vaultKeepsService = vaultKeepsService;
     _auth = auth;
   }
+
+  [HttpPost]
+  [Authorize]
+  public async Task<ActionResult<VaultKeep>> CreateVK([FromBody] VaultKeep vkData)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      vkData.CreatorId = userInfo.Id;
+      VaultKeep vk = _vaultKeepsService.CreateVK(vkData);
+      return Ok(vk);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 }
