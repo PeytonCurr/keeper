@@ -8,4 +8,12 @@ public class KeepsService
   {
     _repo = repo;
   }
+
+  internal Keep CreateKeep(Keep keepData)
+  {
+    Keep keep = _repo.CreateKeep(keepData);
+    keep.CreatedAt = DateTime.Now;
+    keep.UpdatedAt = DateTime.Now;
+    return keep;
+  }
 }

@@ -12,7 +12,7 @@ CREATE TABLE
     IF NOT EXISTS keeps(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
-        description VARCHAR(255) NOT NULL,
+        description VARCHAR(500) NOT NULL,
         img VARCHAR(255) NOT NULL,
         views BIGINT,
         kept INT,

@@ -8,5 +8,5 @@ public class Keep : RepoItem<int>
   public int Views { get; set; } = 0;
   public int Kept { get; set; } = 0;
   public string CreatorId { get; set; }
-  public Account Creator { get; set; }
+  public Profile Creator { get; set; }
 }
