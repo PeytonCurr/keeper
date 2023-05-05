@@ -23,4 +23,19 @@ public class VaultsService
     if (vault == null) throw new Exception($"The Vault at ID: {vaultId} does not exist!");
     return vault;
   }
+
+  internal Vault EditVault(Vault vaultData)
+  {
+    Vault vault = GetOne(vaultData.Id);
+    if (vault.CreatorId != vaultData.CreatorId) throw new Exception("You do not have authorization to Edit the Vault named: vault.name");
+
+    vault.Name = vaultData.Name ?? vault.Name;
+    vault.Description = vaultData.Description ?? vault.Name;
+    vault.Img = vaultData.Img ?? vault.Img;
+    vault.IsPrivate = vaultData.IsPrivate != null ? vaultData.IsPrivate : vault.IsPrivate;
+
+    _repo.EditVault(vault);
+
+    return vault;
+  }
 }

@@ -23,7 +23,6 @@ values
     vaultData.Id = Id;
     return vaultData;
   }
-
   internal Vault GetOne(int vaultId)
   {
     string sql = @"
@@ -40,5 +39,18 @@ WHERE v.id = @vaultId
       return v;
     }, new { vaultId }).FirstOrDefault();
     return vault;
+  }
+  internal void EditVault(Vault vault)
+  {
+    string sql = @"
+UPDATE vaults
+SET
+name = @Name,
+description = @description,
+img = @Img,
+isPrivate = @IsPrivate
+WHERE id = @id
+;";
+    _db.Execute(sql, vault);
   }
 }

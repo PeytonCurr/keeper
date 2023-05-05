@@ -32,7 +32,7 @@ public class VaultsController : ControllerBase
   }
 
   [HttpGet("{vaultId}")]
-  public ActionResult<Keep> GetOne(int vaultId)
+  public ActionResult<Vault> GetOne(int vaultId)
   {
     try
     {
@@ -44,4 +44,22 @@ public class VaultsController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+  [HttpPut("{vaultId}")]
+  [Authorize]
+  public async Task<ActionResult<Vault>> EditVault([FromBody] Vault vaultData, int vaultId)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      vaultData.CreatorId = userInfo.Id;
+      vaultData.Id = vaultId;
+      Vault vault = _vaultsService.EditVault(vaultData);
+      return Ok(vault);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
 }
