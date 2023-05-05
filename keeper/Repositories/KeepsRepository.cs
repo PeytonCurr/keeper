@@ -65,6 +65,22 @@ GROUP BY (k.id)
     }, new { keepId }).FirstOrDefault();
     return keep;
   }
+  internal void EditKeep(Keep keep)
+  {
+    string sql = @"
+UPDATE keeps
+SET
+name = @Name,
+description = @description,
+img = @Img
+WHERE id = @Id
+;";
+    _db.Execute(sql, keep);
+  }
 
-
+  internal void DeleteKeep(int keepId)
+  {
+    string sql = @"DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
+    _db.Execute(sql, new { keepId });
+  }
 }

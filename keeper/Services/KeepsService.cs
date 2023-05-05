@@ -16,7 +16,6 @@ public class KeepsService
     keep.UpdatedAt = DateTime.Now;
     return keep;
   }
-
   internal List<Keep> GetAll()
   {
     List<Keep> keeps = _repo.GetAll();
@@ -28,5 +27,26 @@ public class KeepsService
     Keep keep = _repo.GetOne(keepId);
     if (keep == null) throw new Exception($"The keep you are tying to get, with the ID: {keepId}, does not exist!");
     return keep;
+  }
+  internal Keep EditKeep(Keep keepData)
+  {
+    Keep keep = GetOne(keepData.Id);
+    if (keep.CreatorId != keepData.CreatorId) throw new Exception($"You are not authorized to edit the keep with the name: {keep.Name}");
+
+    keep.Name = keepData.Name ?? keep.Name;
+    keep.Description = keepData.Description ?? keep.Name;
+    keep.Img = keepData.Img ?? keep.Img;
+
+    _repo.EditKeep(keep);
+
+    return keep;
+  }
+
+  internal string DeleteKeep(int keepId, string userId)
+  {
+    Keep keep = GetOne(keepId);
+    if (keep.CreatorId != userId) throw new Exception($"You are not authorized to Delete the keep with the name: {keep.Name}");
+    _repo.DeleteKeep(keepId);
+    return $"You have deleted keep: {keep.Name}";
   }
 }
