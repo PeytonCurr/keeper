@@ -58,4 +58,11 @@ public class VaultsService
     List<VaultedKeep> keeps = _vaultKeepsService.GetKeepsInVault(vaultId);
     return keeps;
   }
+
+  internal List<Vault> GetUsersVaults(string profileId)
+  {
+    List<Vault> vaults = _repo.GetUsersVaults(profileId);
+    if (vaults == null) throw new Exception("This User does not have any Vaults");
+    return vaults;
+  }
 }
