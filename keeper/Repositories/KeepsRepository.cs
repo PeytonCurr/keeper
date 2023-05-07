@@ -83,4 +83,25 @@ WHERE id = @Id
     string sql = @"DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
     _db.Execute(sql, new { keepId });
   }
+
+  internal List<Keep> GetUsersKeeps(string profileId)
+  {
+    string sql = @"
+SELECT
+profile.*,
+k.*,
+COUNT(vk.keepId) AS Kept
+FROM accounts profile
+JOIN keeps k ON k.creatorId = profile.id
+LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+WHERE profile.id = @profileId
+GROUP BY (k.id)
+;";
+    List<Keep> keeps = _db.Query<Profile, Keep, Keep>(sql, (profile, k) =>
+    {
+      k.Creator = profile;
+      return k;
+    }, new { profileId }).ToList();
+    return keeps;
+  }
 }

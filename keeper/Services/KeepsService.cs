@@ -49,4 +49,11 @@ public class KeepsService
     _repo.DeleteKeep(keepId);
     return $"You have deleted keep: {keep.Name}";
   }
+
+  internal List<Keep> GetUsersKeeps(string profileId)
+  {
+    List<Keep> keeps = _repo.GetUsersKeeps(profileId);
+    if (keeps == null) throw new Exception("This User does not have any Keeps");
+    return keeps;
+  }
 }
