@@ -46,4 +46,21 @@ GROUP BY (vk.id)
     }, new { vaultId }).ToList();
     return keeps;
   }
+
+  internal VaultKeep GetOne(int vaultKeepId)
+  {
+    string sql = @"
+SELECT
+*
+FROM vaultKeeps
+WHERE id = @vaultKeepId
+;";
+    VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { vaultKeepId }).FirstOrDefault();
+    return vaultKeep;
+  }
+  internal void DeleteVaultKeep(int vaultKeepId)
+  {
+    string sql = @"DELETE FROM vaultKeeps WHERE id = @vaultKeepId LIMIT 1;";
+    _db.Execute(sql, new { vaultKeepId });
+  }
 }
