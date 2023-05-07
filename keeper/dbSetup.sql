@@ -51,10 +51,10 @@ CREATE TABLE
 SELECT
     k.*,
     COUNT(vk.keepId) AS kept,
-    vk.id AS VaultKeepId,
-    acct.*
+    acct.*,
+    vk.*
 FROM keeps k
     JOIN accounts acct ON acct.id = k.creatorId
     LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
-WHERE vk.vaultId = 1
-GROUP BY (k.id)
+WHERE vk.vaultId = 7
+GROUP BY (vk.id);

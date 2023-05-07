@@ -26,21 +26,23 @@ values
   internal List<VaultedKeep> GetKeepsInVault(int vaultId)
   {
     string sql = @"
-  SELECT
-  k.*,
-  COUNT(vk.keepId) AS kept,
-  vk.id AS VaultKeepId,
-  acct.*
-  FROM keeps k
-  JOIN accounts acct ON acct.id = k.creatorId
-  LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
-  WHERE vk.vaultId = @vaultId
-  GROUP BY (k.id)
+
+SELECT
+vk.*,
+vaultedKeep.*,
+COUNT(vk.keepId) AS kept,
+acct.*
+FROM vaultKeeps vk
+JOIN keeps vaultedKeep ON vk.keepId = vaultedKeep.id
+JOIN accounts acct ON acct.id = vaultedKeep.creatorId
+WHERE vk.vaultId = @vaultId
+GROUP BY (vk.id)
 ;";
-    List<VaultedKeep> keeps = _db.Query<VaultedKeep, Account, VaultedKeep>(sql, (k, acct) =>
+    List<VaultedKeep> keeps = _db.Query<VaultKeep, VaultedKeep, Account, VaultedKeep>(sql, (vk, vaultedKeep, acct) =>
     {
-      k.Creator = acct;
-      return k;
+      vaultedKeep.Creator = acct;
+      vaultedKeep.VaultKeepId = vk.Id;
+      return vaultedKeep;
     }, new { vaultId }).ToList();
     return keeps;
   }
