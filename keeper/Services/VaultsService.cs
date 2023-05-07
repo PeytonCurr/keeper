@@ -65,4 +65,11 @@ public class VaultsService
     if (vaults == null) throw new Exception("This User does not have any Vaults");
     return vaults;
   }
+
+  internal List<Vault> GetMyVaults(string userId)
+  {
+    List<Vault> vaults = _repo.GetMyVaults(userId);
+    if (vaults == null) throw new Exception("You do not have any Vaults");
+    return vaults;
+  }
 }
