@@ -46,11 +46,12 @@ public class ProfilesController : ControllerBase
   }
 
   [HttpGet("{profileId}/vaults")]
-  public ActionResult<List<Vault>> GetUsersVaults(string profileId)
+  public async Task<ActionResult<List<Vault>>> GetUsersVaults(string profileId)
   {
     try
     {
-      List<Vault> vaults = _vaultsService.GetUsersVaults(profileId);
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      List<Vault> vaults = _vaultsService.GetUsersVaults(profileId, userInfo?.Id);
       return Ok(vaults);
     }
     catch (Exception e)

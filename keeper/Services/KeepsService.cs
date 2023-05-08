@@ -56,4 +56,10 @@ public class KeepsService
     if (keeps == null) throw new Exception("This User does not have any Keeps");
     return keeps;
   }
+
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
+  {
+    List<VaultedKeep> keeps = _repo.GetKeepsInVault(vaultId);
+    return keeps;
+  }
 }

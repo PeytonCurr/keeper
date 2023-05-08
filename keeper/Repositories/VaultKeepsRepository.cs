@@ -23,30 +23,6 @@ values
     return vkData;
   }
 
-  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
-  {
-    string sql = @"
-
-SELECT
-vk.*,
-vaultedKeep.*,
-COUNT(vk.keepId) AS kept,
-acct.*
-FROM vaultKeeps vk
-JOIN keeps vaultedKeep ON vk.keepId = vaultedKeep.id
-JOIN accounts acct ON acct.id = vaultedKeep.creatorId
-WHERE vk.vaultId = @vaultId
-GROUP BY (vk.id)
-;";
-    List<VaultedKeep> keeps = _db.Query<VaultKeep, VaultedKeep, Account, VaultedKeep>(sql, (vk, vaultedKeep, acct) =>
-    {
-      vaultedKeep.Creator = acct;
-      vaultedKeep.VaultKeepId = vk.Id;
-      return vaultedKeep;
-    }, new { vaultId }).ToList();
-    return keeps;
-  }
-
   internal VaultKeep GetOne(int vaultKeepId)
   {
     string sql = @"

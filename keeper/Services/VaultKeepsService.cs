@@ -3,24 +3,22 @@ namespace keeper.Services;
 public class VaultKeepsService
 {
   private readonly VaultKeepsRepository _repo;
+  private readonly VaultsService _vaultsService;
 
-  public VaultKeepsService(VaultKeepsRepository repo)
+  public VaultKeepsService(VaultKeepsRepository repo, VaultsService vaultsService)
   {
     _repo = repo;
+    _vaultsService = vaultsService;
   }
 
   internal VaultKeep CreateVK(VaultKeep vkData)
   {
+    Vault vault = _vaultsService.GetOne(vkData.VaultId, vkData.CreatorId);
+
     VaultKeep vk = _repo.CreateVK(vkData);
     vk.CreatedAt = DateTime.Now;
     vk.UpdatedAt = DateTime.Now;
     return vk;
-  }
-
-  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
-  {
-    List<VaultedKeep> keeps = _repo.GetKeepsInVault(vaultId);
-    return keeps;
   }
   internal string DeleteVaultKeep(int vaultKeepId, string userId)
   {
