@@ -1,9 +1,39 @@
-<template></template>
+<template>
+  <!-- SECTION KeepsArea -->
+  <section class="row">
+
+    <!-- STUB KeepCards -->
+    <div class="col-md-4 col-3" v-for="keep in keeps">
+      {{ keep }}
+    </div>
+
+  </section>
+</template>
 
 <script>
+import { computed, onMounted } from "vue";
+import { keepsService } from "../services/KeepsService.js"
+import { AppState } from "../AppState.js";
+
 export default {
   setup() {
-    return {}
+    onMounted(() => {
+      getKeeps()
+    })
+
+    async function getKeeps() {
+      try {
+        await keepsService.getKeeps();
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
+
+    return {
+
+      keeps: computed(() => AppState.keeps),
+
+    }
   }
 }
 </script>

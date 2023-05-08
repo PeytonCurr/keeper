@@ -2,10 +2,10 @@
   <header class="mb-3 sticky-top">
     <Navbar />
   </header>
-  <main>
+  <main class="container-fluid">
     <router-view />
   </main>
-  <footer class="foot">
+  <footer class="foot sticky-bottom">
     <Footbar />
   </footer>
 </template>
