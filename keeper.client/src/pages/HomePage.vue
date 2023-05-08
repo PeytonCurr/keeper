@@ -8,6 +8,23 @@
     </div>
 
   </section>
+  <Modal id="keepDetails" size="modal-xl">
+    <template #content>
+      <KeepDetails />
+    </template>
+  </Modal>
+
+  <Modal id="newKeep" size="modal-md">
+    <template #content>
+      <CreateKeep />
+    </template>
+  </Modal>
+
+  <Modal id="newVault" size="modal-md">
+    <template #content>
+      <CreateVault />
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -15,6 +32,9 @@ import { computed, onMounted } from "vue";
 import { keepsService } from "../services/KeepsService.js"
 import { AppState } from "../AppState.js";
 import KeepCard from "../components/KeepCard.vue";
+import CreateKeep from "../components/CreateKeep.vue";
+import KeepDetails from "../components/KeepDetails.vue";
+import CreateVault from "../components/CreateVault.vue";
 
 export default {
   setup() {
@@ -33,7 +53,7 @@ export default {
       keeps: computed(() => AppState.keeps),
     };
   },
-  components: { KeepCard }
+  components: { KeepCard, CreateKeep, KeepDetails, CreateVault }
 }
 </script>
 

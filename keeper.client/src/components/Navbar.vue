@@ -12,11 +12,13 @@
           Create
         </button>
         <ul class="dropdown-menu bg-grey border-dark border-3">
-          <li><button class="btn dropdown-item pb-2 fw-bold listBtn">New Keep</button></li>
+          <li><button class="btn dropdown-item pb-2 fw-bold listBtn" data-bs-toggle="modal" data-bs-target="#newKeep">New
+              Keep</button></li>
           <li>
             <div class="listDiv"></div>
           </li>
-          <li><button class="btn dropdown-item pt-2 fw-bold listBtn">New Vault</button></li>
+          <li><button class="btn dropdown-item pt-2 fw-bold listBtn" data-bs-toggle="modal" data-bs-target="#newVault">New
+              Vault</button></li>
         </ul>
       </div>
     </div>

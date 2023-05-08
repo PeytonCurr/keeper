@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 keepImg rounded elevation-5 selectable">
+  <div class="col-12 keepImg rounded elevation-5 selectable" data-bs-toggle="modal" data-bs-target="#keepDetails">
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
     <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
       <h4 class="text-light keepFont m-0">{{ keep?.name }}</h4>
