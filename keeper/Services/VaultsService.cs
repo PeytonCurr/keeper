@@ -3,13 +3,11 @@ namespace keeper.Services;
 public class VaultsService
 {
   private readonly VaultsRepository _repo;
-  private readonly VaultKeepsService _vaultKeepsService;
   private readonly KeepsService _keepsService;
 
-  public VaultsService(VaultsRepository repo, VaultKeepsService vaultKeepsService, KeepsService keepsService)
+  public VaultsService(VaultsRepository repo, KeepsService keepsService)
   {
     _repo = repo;
-    _vaultKeepsService = vaultKeepsService;
     _keepsService = keepsService;
   }
 

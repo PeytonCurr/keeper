@@ -14,6 +14,7 @@ public class VaultKeepsService
   internal VaultKeep CreateVK(VaultKeep vkData)
   {
     Vault vault = _vaultsService.GetOne(vkData.VaultId, vkData.CreatorId);
+    if (vault.CreatorId != vkData.CreatorId) throw new Exception("You are not Authorized to Create this VaultKeep");
 
     VaultKeep vk = _repo.CreateVK(vkData);
     vk.CreatedAt = DateTime.Now;

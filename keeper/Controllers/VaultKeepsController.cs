@@ -20,7 +20,7 @@ public class VaultKeepsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      vkData.CreatorId = userInfo.Id;
+      vkData.CreatorId = userInfo?.Id;
       VaultKeep vk = _vaultKeepsService.CreateVK(vkData);
       return Ok(vk);
     }
