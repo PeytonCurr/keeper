@@ -1,10 +1,10 @@
 <template>
   <!-- SECTION KeepsArea -->
-  <section class="row">
+  <section class="row p-4">
 
-    <!-- STUB KeepCards -->
-    <div class="col-md-4 col-3" v-for="keep in keeps">
-      {{ keep }}
+    <!-- STUB KeepCard -->
+    <div class="col-md-4 col-3 p-3" v-for="keep in keeps">
+      <KeepCard :keep="keep" />
     </div>
 
   </section>
@@ -14,27 +14,26 @@
 import { computed, onMounted } from "vue";
 import { keepsService } from "../services/KeepsService.js"
 import { AppState } from "../AppState.js";
+import KeepCard from "../components/KeepCard.vue";
 
 export default {
   setup() {
     onMounted(() => {
-      getKeeps()
-    })
-
+      getKeeps();
+    });
     async function getKeeps() {
       try {
         await keepsService.getKeeps();
-      } catch (error) {
+      }
+      catch (error) {
         Pop.error(error);
       }
     }
-
     return {
-
       keeps: computed(() => AppState.keeps),
-
-    }
-  }
+    };
+  },
+  components: { KeepCard }
 }
 </script>
 

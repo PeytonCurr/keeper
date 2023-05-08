@@ -8,7 +8,7 @@ class KeepsService {
     const res = await api.get("api/keeps");
     logger.log(["Logging Res.Data"], res.data);
     AppState.keeps = res.data.map(k => new Keep(k))
-    logger.log(["Logging Appstate.keeps"], AppState.keeps);
+    logger.log(["Logging AppState.keeps"], AppState.keeps);
   }
 }
 

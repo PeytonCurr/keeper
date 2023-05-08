@@ -1,5 +1,5 @@
 <template>
-  <header class="mb-3 sticky-top">
+  <header class="sticky-top">
     <Navbar />
   </header>
   <main class="container-fluid">
