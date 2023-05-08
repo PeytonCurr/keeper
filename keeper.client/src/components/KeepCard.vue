@@ -1,9 +1,9 @@
 <template>
   <div class="col-12 keepImg rounded elevation-5 selectable">
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
-    <div class="d-flex align-items-center justify-content-between px-3 py-2 glass">
-      <h3 class="text-light keepFont m-0">{{ keep?.name }}</h3>
-      <img :title="keep?.creator.name" :src="keep?.creator.picture" height="40" class="rounded-circle">
+    <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
+      <h4 class="text-light keepFont m-0">{{ keep?.name }}</h4>
+      <img :title="keep?.creator.name" :src="keep?.creator.picture" class="rounded-circle creatorPic">
     </div>
   </div>
 </template>
@@ -38,5 +38,17 @@ export default {
 
 .glass {
   background-color: #ddd5e019;
+}
+
+@media (min-width: 576px) {
+  .creatorPic {
+    height: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .creatorPic {
+    height: 30px;
+  }
 }
 </style>

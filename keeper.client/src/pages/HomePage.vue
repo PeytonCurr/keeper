@@ -58,14 +58,21 @@ export default {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .masonry {
     columns: 4;
     column-gap: 40px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .masonry {
+    columns: 3;
+    column-gap: 40px;
+  }
+}
+
+@media (max-width: 992px) {
   .masonry {
     columns: 2;
     column-gap: 35px;
