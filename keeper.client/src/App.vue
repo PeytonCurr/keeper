@@ -47,4 +47,8 @@ export default {
 .foot {
   height: fit-content;
 }
+
+.keepFont {
+  font-family: 'Shrikhand', cursive;
+}
 </style>
