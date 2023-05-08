@@ -1,16 +1,20 @@
 <template>
-  <header>
+  <header class="mb-3 sticky-top">
     <Navbar />
   </header>
   <main>
     <router-view />
   </main>
+  <footer class="foot">
+    <Footbar />
+  </footer>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import Footbar from './components/Footbar.vue'
 
 export default {
   setup() {
@@ -18,7 +22,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, Footbar }
 }
 </script>
 <style lang="scss">
@@ -28,10 +32,19 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+@media (max-width: 768px) {
+  header {
+    display: none;
+  }
+}
 
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
+@media (min-width: 768px) {
+  footer {
+    display: none;
+  }
+}
+
+.foot {
+  height: fit-content;
 }
 </style>
