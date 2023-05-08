@@ -6,10 +6,16 @@ import { api } from "./AxiosService.js";
 class KeepsService {
   async getKeeps() {
     const res = await api.get("api/keeps");
-    logger.log(["Logging Res.Data"], res.data);
     AppState.keeps = res.data.map(k => new Keep(k))
-    logger.log(["Logging AppState.keeps"], AppState.keeps);
   }
+
+  // async getOneKeep(keepId) {
+  //   const res = await api.get(`api/keeps/${keepId}`)
+  //   logger.log(res.data)
+  //   AppState.activeKeep = new Keep(res.data)
+  //   logger.log(["Logging AppState.activeKeep"], AppState.activeKeep)
+  // }
+
 }
 
 export const keepsService = new KeepsService();

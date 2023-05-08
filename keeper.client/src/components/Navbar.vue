@@ -2,9 +2,7 @@
   <div class="bg-light px-5 row text-dark pb-2 border-bottom border-3">
     <div class="col-4 d-flex align-items-center">
       <router-link class="d-flex" :to="{ name: 'Home' }">
-        <div class="d-flex flex-column align-items-center">
-          <button class="btn bg-secondary px-2 py-0 fw-bold">Home</button>
-        </div>
+        <button class="btn bg-secondary px-2 py-0 fw-bold">Home</button>
       </router-link>
       <div class="dropdown">
         <button class="btn dropdown-toggle px-2 py-1 fw-bold" type="button" data-bs-toggle="dropdown"

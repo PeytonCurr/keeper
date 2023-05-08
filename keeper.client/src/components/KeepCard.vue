@@ -1,17 +1,27 @@
 <template>
-  <div class="col-12 keepImg rounded elevation-5 selectable" data-bs-toggle="modal" data-bs-target="#keepDetails">
+  <div class="col-12 keepImg rounded elevation-5 selectable" data-bs-toggle="modal"
+    :data-bs-target="`#keepDetails-${keep?.id}`">
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
     <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
       <h4 class="text-light keepFont m-0">{{ keep?.name }}</h4>
       <img :title="keep?.creator.name" :src="keep?.creator.picture" class="rounded-circle creatorPic">
     </div>
   </div>
+
+  <Modal :id="`keepDetails-${keep?.id}`" size="modal-xl">
+    <template #content>
+      <KeepDetails :keep="keep" />
+    </template>
+  </Modal>
 </template>
 
 
 <script lang="ts">
 import { computed } from 'vue';
 import { Keep } from '../models/Keep';
+import Pop from '../utils/Pop';
+import { keepsService } from '../services/KeepsService';
+import { AppState } from '../AppState';
 
 export default {
 
@@ -21,7 +31,17 @@ export default {
 
   setup(props) {
     return {
-      keepImg: computed(() => `url(${props.keep.img})`)
+      keepImg: computed(() => `url(${props.keep.img})`),
+
+      // async getOneKeep(keepId) {
+      //   try {
+      //     AppState.activeKeep = null
+      //     await keepsService.getOneKeep(keepId)
+      //   } catch (error) {
+      //     Pop.error(error);
+      //   }
+      // },
+
     }
   }
 }

@@ -3,16 +3,13 @@
   <section class="p-md-5 p-1 masonry">
 
     <!-- STUB KeepCard -->
-    <div class="mason elevation-5 rounded" v-for="keep in keeps">
+    <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
       <KeepCard :keep="keep" />
     </div>
 
   </section>
-  <Modal id="keepDetails" size="modal-xl">
-    <template #content>
-      <KeepDetails />
-    </template>
-  </Modal>
+
+
 
   <Modal id="newKeep" size="modal-md">
     <template #content>
