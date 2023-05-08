@@ -2,7 +2,7 @@
   <header class="sticky-top">
     <Navbar />
   </header>
-  <main class="container-fluid">
+  <main class="container-fluid px-md-5">
     <router-view />
   </main>
   <footer class="foot sticky-bottom">

@@ -1,9 +1,9 @@
 <template>
   <!-- SECTION KeepsArea -->
-  <section class="row p-4">
+  <section class="p-md-5 p-1 masonry">
 
     <!-- STUB KeepCard -->
-    <div class="col-md-4 col-3 p-3" v-for="keep in keeps">
+    <div class="mason elevation-5 rounded" v-for="keep in keeps">
       <KeepCard :keep="keep" />
     </div>
 
@@ -56,5 +56,24 @@ export default {
       object-position: center;
     }
   }
+}
+
+@media (min-width: 768px) {
+  .masonry {
+    columns: 4;
+    column-gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry {
+    columns: 2;
+    column-gap: 35px;
+  }
+}
+
+.mason {
+  margin-bottom: 15px;
+  break-inside: avoid;
 }
 </style>

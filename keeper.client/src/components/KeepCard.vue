@@ -1,7 +1,7 @@
 <template>
-  <section class="row keepImg rounded">
-
-  </section>
+  <div class="col-12 keepImg rounded elevation-5">
+    <img :src="keep.img" class="img-fluid" style="visibility: hidden;">
+  </div>
 </template>
 
 
@@ -26,8 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .keepImg {
-  min-height: 30vh;
-  width: 30vw;
+  width: 100%;
   background-image: v-bind(keepImg);
   background-position: center;
   background-size: cover;

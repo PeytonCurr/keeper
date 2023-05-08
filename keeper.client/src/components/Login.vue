@@ -4,15 +4,16 @@
       Login
     </button>
     <div v-else>
-      <div class="dropdown dropstart my-2 my-lg-0">
-        <div type="button" class="bg-light border-0 selectable no-select" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown-center my-2 my-lg-0">
+        <div type="button" class="bg-light border-0 no-select" data-bs-toggle="dropdown" aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="45" class="rounded-circle" />
+            <img :src="account.picture || user.picture" alt="account photo" height="45"
+              class="rounded-circle selectable" />
           </div>
         </div>
 
 
-        <ul class="dropdown-menu dropdown-menu-lg-left p-0 bg-grey border-dark border-3" aria-labelledby="authDropdown">
+        <ul class="dropdown-menu p-0 bg-grey border-dark border-3" aria-labelledby="authDropdown">
           <li>
             <router-link :to="{ name: 'Account' }">
               <button class="btn dropdown-item fw-bold listBtn">Manage Account</button>
