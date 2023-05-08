@@ -11,7 +11,7 @@
           aria-expanded="false">
           Create
         </button>
-        <ul class="dropdown-menu bg-grey">
+        <ul class="dropdown-menu bg-grey border-dark border-3">
           <li><button class="btn dropdown-item pb-2 fw-bold listBtn">New Keep</button></li>
           <li>
             <div class="listDiv"></div>
