@@ -12,7 +12,7 @@
               keep?.views }}</div>
           <div class="mx-3 fs-5 text-success d-flex align-items-center"> <i
               class="mdi mdi-alpha-k-box-outline fs-3 me-1 pt-1"></i> {{
-                keep?.views }}</div>
+                keep?.kept }}</div>
         </div>
 
         <div class="keepFont longText">
@@ -22,11 +22,11 @@
 
         <div class="d-flex align-items-center justify-content-between" v-if="account?.id">
 
-          <form id="vaultPicker" class="creator" @submit.prevent="">
+          <form id="vaultPicker" class="creator" @submit.prevent="saveToVault(keep?.id)">
             <select class="form-select form-select-sm border-dark border-3" aria-label=".form-select-sm"
               v-model="selectable">
               ,<option value="" selected disabled hidden>Save to a Vault...</option>
-              <option class="bg-grey" v-for="vault in vaults">{{ vault.name }}</option>
+              <option class="bg-grey" v-for="vault in vaults">{{ vault.name + " ID: " + vault.id }}</option>
             </select>
             <button type="submit" class="btn bg-secondary px-2 py-0 fw-bold ms-2">Save</button>
           </form>
@@ -48,6 +48,9 @@
 import { computed, ref } from 'vue';
 import { Keep } from '../models/Keep';
 import { AppState } from '../AppState';
+import Pop from '../utils/Pop';
+import { logger } from '../utils/Logger';
+import { vaultsService } from '../services/VaultsService';
 
 export default {
 
@@ -61,6 +64,16 @@ export default {
       selectable,
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.vaults),
+
+      async saveToVault(keepId) {
+        try {
+          selectable.value = selectable.value.replace(/[^\d]/g, '')
+          await vaultsService.saveToVault(selectable.value, keepId);
+          props.keep.kept++
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
     }
   }
 }

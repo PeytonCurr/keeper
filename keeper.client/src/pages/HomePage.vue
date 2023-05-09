@@ -45,7 +45,6 @@ export default {
 
     async function getMyVaults() {
       try {
-        logger.log("Getting My Vaults")
         await vaultsService.getMyVaults()
       } catch (error) {
         Pop.error(error);

@@ -15,6 +15,10 @@ class KeepsService {
   //   AppState.activeKeep = new Keep(res.data)
   //   logger.log(["Logging AppState.activeKeep"], AppState.activeKeep)
   // }
+  increaseViews(keep) {
+    const res = api.put(`api/keeps`, keep)
+    logger.log(["logging res.data"], res.data)
+  }
 
 }
 

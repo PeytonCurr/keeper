@@ -31,11 +31,16 @@ public class KeepsService
   internal Keep EditKeep(Keep keepData)
   {
     Keep keep = GetOne(keepData.Id);
-    if (keep.CreatorId != keepData.CreatorId) throw new Exception($"You are not authorized to edit the keep with the name: {keep.Name}");
 
-    keep.Name = keepData.Name ?? keep.Name;
-    keep.Description = keepData.Description ?? keep.Name;
-    keep.Img = keepData.Img ?? keep.Img;
+    keep.Views = keepData.Views != null ? keepData.Views : keep.Views;
+
+    if (keep.CreatorId == keepData.CreatorId)
+    {
+      keep.Name = keepData.Name ?? keep.Name;
+      keep.Description = keepData.Description ?? keep.Name;
+      keep.Img = keepData.Img ?? keep.Img;
+    }
+
 
     _repo.EditKeep(keep);
 

@@ -72,7 +72,8 @@ UPDATE keeps
 SET
 name = @Name,
 description = @description,
-img = @Img
+img = @Img,
+views = @views
 WHERE id = @Id
 ;";
     _db.Execute(sql, keep);
