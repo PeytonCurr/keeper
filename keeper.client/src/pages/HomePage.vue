@@ -32,12 +32,25 @@ import KeepCard from "../components/KeepCard.vue";
 import CreateKeep from "../components/CreateKeep.vue";
 import KeepDetails from "../components/KeepDetails.vue";
 import CreateVault from "../components/CreateVault.vue";
+import Pop from "../utils/Pop.js";
+import { logger } from "../utils/Logger.js";
+import { vaultsService } from "../services/VaultsService.js";
 
 export default {
   setup() {
     onMounted(() => {
-      getKeeps();
-    });
+      getKeeps()
+      getMyVaults()
+    })
+
+    async function getMyVaults() {
+      try {
+        logger.log("Getting My Vaults")
+        await vaultsService.getMyVaults()
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
     async function getKeeps() {
       try {
         await keepsService.getKeeps();

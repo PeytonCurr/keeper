@@ -20,27 +20,16 @@
           <p class="text-success m-0">{{ keep?.description }}</p>
         </div>
 
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between" v-if="account?.id">
 
-          <!-- <div class="dropdown" @submit.prevent="@SaveToVault()"> -->
-          <div class="dropdown">
-            <button class="btn dropdown-toggle px-2 py-1 fw-bold" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              VaultName**
-            </button>
-            <ul class="dropdown-menu bg-grey border-dark border-3">
-              <li><button class="btn dropdown-item pb-2 fw-bold listBtn" data-bs-toggle="modal"
-                  data-bs-target="#newKeep">New
-                  Keep</button></li>
-              <li>
-                <div class="listDiv"></div>
-              </li>
-              <li><button class="btn dropdown-item pt-2 fw-bold listBtn" data-bs-toggle="modal"
-                  data-bs-target="#newVault">New
-                  Vault</button></li>
-            </ul>
-            <button type="submit" class="btn bg-secondary px-2 py-0 fw-bold">Save</button>
-          </div>
+          <form id="vaultPicker" class="creator" @submit.prevent="">
+            <select class="form-select form-select-sm border-dark border-3" aria-label=".form-select-sm"
+              v-model="selectable">
+              ,<option value="" selected disabled hidden>Save to a Vault...</option>
+              <option class="bg-grey" v-for="vault in vaults">{{ vault.name }}</option>
+            </select>
+            <button type="submit" class="btn bg-secondary px-2 py-0 fw-bold ms-2">Save</button>
+          </form>
 
           <div class="creator align-items-center p-2">
             <img :title="keep?.creator.name" :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
@@ -56,7 +45,9 @@
 
 
 <script lang="ts">
+import { computed, ref } from 'vue';
 import { Keep } from '../models/Keep';
+import { AppState } from '../AppState';
 
 export default {
 
@@ -64,14 +55,18 @@ export default {
     keep: { type: Keep, Required: true }
   },
 
-  setup() {
-    return {}
+  setup(props) {
+    const selectable = ref("")
+    return {
+      selectable,
+      account: computed(() => AppState.account),
+      vaults: computed(() => AppState.vaults),
+    }
   }
 }
 </script>
 
-
-<style lang="scss" scoped>
+<style scoped>
 .HeroImg {
   min-height: 43vh;
   max-height: 53vh;
@@ -97,6 +92,11 @@ export default {
   .longText {
     padding: 1.5em;
   }
+
+  .creatorImg {
+    margin-left: 0;
+    margin-right: .5em;
+  }
 }
 
 @media (max-width: 576px) {
@@ -106,6 +106,7 @@ export default {
 
   .creatorImg {
     margin-left: 8em;
+    margin-right: 0em;
   }
 
   .longText {
