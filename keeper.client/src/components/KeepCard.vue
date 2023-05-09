@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <Modal :id="`keepDetails-${keep?.id}`" size="modal-xl">
+  <Modal class="toggleLarge" :id="`keepDetails-${keep?.id}`" size="modal-xl">
     <template #content>
       <KeepDetails :keep="keep" />
     </template>
