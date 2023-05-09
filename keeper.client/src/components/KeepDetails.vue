@@ -4,6 +4,7 @@
       <div class="col-12 col-xl-6 p-0 m-0">
         <img :src="keep?.img" class="HeroImg">
       </div>
+
       <div class="col-12 col-xl-6 d-flex flex-column justify-content-between p-4">
 
         <div class="d-flex justify-content-center">
@@ -20,9 +21,9 @@
           <p class="text-success m-0">{{ keep?.description }}</p>
         </div>
 
-        <div class="d-flex align-items-center justify-content-between" v-if="account?.id">
+        <div class="d-flex align-items-center justify-content-between">
 
-          <form id="vaultPicker" class="creator" @submit.prevent="saveToVault(keep?.id)">
+          <form id="vaultPicker" class="creator" @submit.prevent="saveToVault(keep?.id)" v-if="account?.id">
             <select class="form-select form-select-sm border-dark border-3" aria-label=".form-select-sm"
               v-model="selectable">
               ,<option value="" selected disabled hidden>Save to a Vault...</option>
@@ -31,10 +32,12 @@
             <button type="submit" class="btn bg-secondary px-2 py-0 fw-bold ms-2">Save</button>
           </form>
 
-          <div class="creator align-items-center p-2">
-            <img :title="keep?.creator.name" :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
-            <h6 class="">{{ keep?.creator.name }}</h6>
-          </div>
+          <router-link class="hovEffect" :to="{ name: 'Profile', params: { profileId: keep?.creatorId } }">
+            <div class="creator align-items-center p-2" data-bs-dismiss="modal" aria-label="Close">
+              <img :title="keep?.creator.name" :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
+              <h6 class="">{{ keep?.creator.name }}</h6>
+            </div>
+          </router-link>
 
         </div>
 
@@ -45,7 +48,7 @@
 
 
 <script lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { Keep } from '../models/Keep';
 import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
@@ -60,7 +63,18 @@ export default {
 
   setup(props) {
     const selectable = ref("")
+    // const signedIn = ref("")
+    // const signedOut = ref("")
+
+    // watchEffect(() => {
+    //   if (AppState.account) {
+    //     signedIn.value = "justify-content-between"
+    //     signedOut.value = "justify-content-center"
+    //   }
+    // })
     return {
+      // signedIn,
+      // signedOut,
       selectable,
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.vaults),
@@ -74,12 +88,22 @@ export default {
           Pop.error(error);
         }
       },
+
     }
   }
 }
 </script>
 
 <style scoped>
+.hovEffect:hover {
+  filter: brightness(1.80);
+  filter: drop-shadow(1px 0px);
+}
+
+.hovEffect:active {
+  transform: scale(.90);
+}
+
 .HeroImg {
   min-height: 43vh;
   max-height: 53vh;

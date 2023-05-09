@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watchEffect } from "vue";
 import { keepsService } from "../services/KeepsService.js"
 import { AppState } from "../AppState.js";
 import KeepCard from "../components/KeepCard.vue";
@@ -40,7 +40,12 @@ export default {
   setup() {
     onMounted(() => {
       getKeeps()
-      getMyVaults()
+    })
+
+    watchEffect(() => {
+      if (AppState.account?.id) {
+        getMyVaults()
+      }
     })
 
     async function getMyVaults() {
