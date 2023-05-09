@@ -16,7 +16,7 @@ class KeepsService {
   //   logger.log(["Logging AppState.activeKeep"], AppState.activeKeep)
   // }
   async increaseViews(keep) {
-    const res = await api.put(`api/keeps`, keep)
+    const res = await api.get(`api/keeps/${keep.id}/increaseViews`)
     // logger.log(["logging res.data"], res.data)
   }
 

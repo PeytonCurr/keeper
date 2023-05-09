@@ -72,8 +72,7 @@ UPDATE keeps
 SET
 name = @Name,
 description = @description,
-img = @Img,
-views = @views
+img = @Img
 WHERE id = @Id
 ;";
     _db.Execute(sql, keep);
@@ -128,5 +127,17 @@ GROUP BY (vk.id)
       return vaultedKeep;
     }, new { vaultId }).ToList();
     return keeps;
+  }
+
+  internal Keep increaseViews(Keep keepData)
+  {
+    string sql = @"
+UPDATE keeps
+SET
+views = @views
+WHERE id = @Id
+;";
+    _db.Execute(sql, keepData);
+    return keepData;
   }
 }

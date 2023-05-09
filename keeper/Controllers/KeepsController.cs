@@ -59,14 +59,31 @@ public class KeepsController : ControllerBase
     }
   }
 
-  [HttpPut]
+  [HttpGet("{keepId}/increaseViews")]
+  public ActionResult<Keep> increaseViews(int keepId)
+  {
+    try
+    {
+      Keep keep = _keepsService.increaseViews(keepId);
+      return Ok(keep);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
-  public async Task<ActionResult<Keep>> EditKeep([FromBody] Keep keepData)
+
+  [HttpPut("{keepId}")]
+  [Authorize]
+
+  public async Task<ActionResult<Keep>> EditKeep([FromBody] Keep keepData, int keepId)
   {
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
       keepData.CreatorId = userInfo?.Id;
+      keepData.Id = keepId;
       Keep keep = _keepsService.EditKeep(keepData);
       return Ok(keep);
     }

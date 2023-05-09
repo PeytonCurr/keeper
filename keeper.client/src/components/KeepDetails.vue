@@ -67,9 +67,9 @@ export default {
 
       async saveToVault(keepId) {
         try {
-          selectable.value = selectable.value.replace(/[^\d]/g, '')
           await vaultsService.saveToVault(selectable.value, keepId);
           props.keep.kept++
+          Pop.success(`Added to Vault`)
         } catch (error) {
           Pop.error(error);
         }

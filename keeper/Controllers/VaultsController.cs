@@ -20,7 +20,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      vaultData.CreatorId = userInfo.Id;
+      vaultData.CreatorId = userInfo?.Id;
       Vault vault = _vaultsService.CreateVault(vaultData);
       vault.Creator = userInfo;
       return Ok(vault);
@@ -53,7 +53,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      vaultData.CreatorId = userInfo.Id;
+      vaultData.CreatorId = userInfo?.Id;
       vaultData.Id = vaultId;
       Vault vault = _vaultsService.EditVault(vaultData);
       return Ok(vault);
@@ -70,7 +70,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      string message = _vaultsService.DeleteVault(vaultId, userInfo.Id);
+      string message = _vaultsService.DeleteVault(vaultId, userInfo?.Id);
       return Ok(message);
     }
     catch (Exception e)

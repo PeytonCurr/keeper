@@ -4,7 +4,7 @@
       <router-link class="d-flex" :to="{ name: 'Home' }">
         <button class="btn bg-secondary px-2 py-0 fw-bold">Home</button>
       </router-link>
-      <div class="dropdown">
+      <div class="dropdown" v-if="account?.id">
         <button class="btn dropdown-toggle px-2 py-1 fw-bold" type="button" data-bs-toggle="dropdown"
           aria-expanded="false">
           Create
@@ -33,10 +33,15 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { AppState } from '../AppState.js';
 import Login from './Login.vue'
+
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   },
   components: { Login }
 }

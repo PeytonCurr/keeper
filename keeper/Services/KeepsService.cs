@@ -32,14 +32,10 @@ public class KeepsService
   {
     Keep keep = GetOne(keepData.Id);
 
-    keep.Views = keepData.Views != null ? keepData.Views : keep.Views;
-
-    if (keep.CreatorId == keepData.CreatorId)
-    {
-      keep.Name = keepData.Name ?? keep.Name;
-      keep.Description = keepData.Description ?? keep.Name;
-      keep.Img = keepData.Img ?? keep.Img;
-    }
+    if (keep.CreatorId != keepData.CreatorId) throw new Exception($"You are not Authorized to Edit the Keep: {keep.Name}");
+    keep.Name = keepData.Name ?? keep.Name;
+    keep.Description = keepData.Description ?? keep.Name;
+    keep.Img = keepData.Img ?? keep.Img;
 
 
     _repo.EditKeep(keep);
@@ -66,5 +62,13 @@ public class KeepsService
   {
     List<VaultedKeep> keeps = _repo.GetKeepsInVault(vaultId);
     return keeps;
+  }
+
+  internal Keep increaseViews(int keepId)
+  {
+    Keep keepData = GetOne(keepId);
+    keepData.Views++;
+    Keep keep = _repo.increaseViews(keepData);
+    return keep;
   }
 }

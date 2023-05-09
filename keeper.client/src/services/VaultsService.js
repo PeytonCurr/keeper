@@ -10,7 +10,9 @@ class VaultsService {
     AppState.vaults = res.data.map(v => new Vault(v))
     // logger.log(["Logging the AppState"], AppState.vaults)
   }
-  async saveToVault(vaultId, keepId) {
+  async saveToVault(selectableValue, keepId) {
+    selectableValue = selectableValue.replace(/[^\d]/g, '')
+    const vaultId = selectableValue
     let vaultKeepData = {}
     vaultKeepData.vaultId = vaultId
     vaultKeepData.keepId = keepId
