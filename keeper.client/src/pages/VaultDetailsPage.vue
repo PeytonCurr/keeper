@@ -1,6 +1,4 @@
-<template>
-  Going to put all the Stuff from KeepDetails
-</template>
+<template></template>
 
 
 <script lang="ts">
