@@ -1,15 +1,33 @@
 <template>
-  <!-- SECTION KeepsArea -->
   <section class="row p-md-5 p-1">
     <div class="col-12 p-md-5 p-1">
-      <section class="p-5 m-md-5 m-1 masonry">
 
-        <!-- STUB KeepCard -->
-        <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
-          <BasicKeepCard :keep="keep" />
-        </div>
+      <!-- SECTION VaultsArea -->
+      <div class="p-5 m-md-5 m-1">
+        <h1>Vaults</h1>
+        <section class="masonry">
+          <!-- STUB BasicKeepCard -->
+          <div class="mason elevation-5 rounded" v-for="vault in vaults" :key="vault?.id">
+            <VaultCard :vault="vault" />
+          </div>
 
-      </section>
+        </section>
+      </div>
+
+
+      <!-- SECTION KeepsArea -->
+      <div class="p-5 m-md-5 m-1">
+        <h1>Keeps</h1>
+        <section class="masonry">
+          <!-- STUB BasicKeepCard -->
+          <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
+            <BasicKeepCard :keep="keep" />
+          </div>
+
+        </section>
+      </div>
+
+
     </div>
   </section>
 </template>
@@ -21,28 +39,40 @@ import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
 import Pop from '../utils/Pop';
 import BasicKeepCard from '../components/BasicKeepCard.vue'
+import { useRoute } from 'vue-router';
+import VaultCard from '../components/VaultCard.vue';
+import { vaultsService } from '../services/VaultsService';
 
 export default {
   setup() {
-
+    const route = useRoute();
     onMounted(() => {
-      getKeeps()
-    })
-
-    async function getKeeps() {
+      getProfileKeeps();
+      getProfileVaults();
+    });
+    async function getProfileKeeps() {
       try {
-        await keepsService.getKeeps();
+        await keepsService.getProfileKeeps(route.params.profileId);
       }
       catch (error) {
         Pop.error(error);
       }
     }
+    async function getProfileVaults() {
+      try {
+        await vaultsService.getProfileVaults(route.params.profileId);
 
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
     return {
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
-    }
-  }
+      vaults: computed(() => AppState.vaults),
+    };
+  },
+  components: { VaultCard, BasicKeepCard }
 }
 </script>
 

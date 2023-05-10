@@ -6,6 +6,7 @@ import { api } from "./AxiosService.js";
 
 class VaultsService {
   async getMyVaults() {
+    AppState.vaults = []
     const res = await api.get(`account/vaults`)
     AppState.vaults = res.data.map(v => new Vault(v))
     // logger.log(["Logging the AppState"], AppState.vaults)
@@ -19,6 +20,11 @@ class VaultsService {
     const res = await api.post(`api/vaultKeeps`, vaultKeepData)
     AppState.vaultKeeps.push = new VaultKeep(res.data)
     logger.log(['Logging AppState'], AppState.vaultKeeps)
+  }
+  async getProfileVaults(profileId) {
+    AppState.vaults = []
+    const res = await api.get(`api/profiles/${profileId}/vaults`);
+    AppState.vaults = res.data.map(v => new Vault(v));
   }
 
 }

@@ -1,0 +1,60 @@
+<template>
+  <div class="col-12 vaultImg rounded elevation-5 selectable" data-bs-toggle="modal"
+    :data-bs-target="`#vaultKeepDetails-${vault?.id}`">
+    <img :src="vault?.img" class="img-fluid" style="visibility: hidden;">
+    <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
+      <h4 class="text-light keepFont m-0">{{ vault?.name }}</h4>
+    </div>
+  </div>
+
+  <Modal class="toggleLarge" :id="`vaultKeepDetails-${vault?.id}`" size="modal-xl">
+    <template #content>
+      <VaultKeepDetails :vault="vault" />
+    </template>
+  </Modal>
+</template>
+
+
+<script lang="ts">
+import { computed } from 'vue';
+import { Vault } from '../models/Vault';
+import VaultKeepDetails from './VaultKeepDetails.vue';
+
+export default {
+  props: {
+    vault: { type: Vault, Required: true }
+  },
+  setup(props) {
+    return {
+      vaultImg: computed(() => `url(${props.vault.img})`),
+    };
+  },
+  components: { VaultKeepDetails }
+}
+</script>
+
+
+<style lang="scss" scoped>
+.vaultImg {
+  width: 100%;
+  background-image: v-bind(vaultImg);
+  background-position: center;
+  background-size: cover;
+}
+
+.glass {
+  background-color: #ddd5e019;
+}
+
+@media (min-width: 576px) {
+  .creatorPic {
+    height: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .creatorPic {
+    height: 30px;
+  }
+}
+</style>
