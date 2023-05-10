@@ -19,7 +19,7 @@ const routes = [
     beforeEnter: authSettled
   },
   {
-    path: '/account',
+    path: '/account/:accountId',
     name: 'Account',
     component: loadPage('AccountPage'),
     beforeEnter: authGuard

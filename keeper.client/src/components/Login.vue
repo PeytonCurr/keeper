@@ -15,7 +15,7 @@
 
         <ul class="dropdown-menu p-0 bg-grey border-dark border-3" aria-labelledby="authDropdown">
           <li>
-            <router-link :to="{ name: 'Account' }">
+            <router-link :to="{ name: 'Account', params: { accountId: account?.id } }" v-if="account?.id">
               <button class="btn dropdown-item fw-bold listBtn">Manage Account</button>
             </router-link>
           </li>
