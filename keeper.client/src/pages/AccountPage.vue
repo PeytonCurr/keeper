@@ -2,8 +2,8 @@
   <section class="row p-md-5 p-1">
     <div class="col-12 p-md-5 p-1">
 
-      <!-- SECTION ProfileArea -->
-      <section class="px-5 mx-md-5 mx-1 row profileArea">
+      <!-- SECTION AccountArea -->
+      <section class="px-md-5 mx-md-5 mx-1 row profileArea">
         <div class="col-12">
           <img class="coverImg" :src="account?.coverImg" alt="Profile CoverImg">
           <div class="text-end fs-3" v-if="account?.id == route.params.accountId">...</div>
@@ -16,7 +16,7 @@
       </section>
 
       <!-- SECTION VaultsArea -->
-      <div class="px-5 mx-md-5 mx-1">
+      <div class="px-md-5 mx-md-5 mx-1">
         <h1>Vaults</h1>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
@@ -29,7 +29,7 @@
 
 
       <!-- SECTION KeepsArea -->
-      <div class="p-5 m-md-5 m-1">
+      <div class="px-md-5 mx-md-5 mx-1">
         <h1>Keeps</h1>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
