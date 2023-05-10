@@ -2,8 +2,21 @@
   <section class="row p-md-5 p-1">
     <div class="col-12 p-md-5 p-1">
 
+      <!-- SECTION ProfileArea -->
+      <section class="px-5 mx-md-5 mx-1 row profileArea">
+        <div class="col-12">
+          <img class="coverImg" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
+        </div>
+        <div class="col-12 text-center movePic">
+          <img class="rounded-circle elevation-5 border border-2" :src="activeVault?.creator.picture" height="100"
+            alt="Profile Pic">
+          <h1 class="mt-2">{{ activeVault?.creator.name }}</h1>
+          <h6>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</h6>
+        </div>
+      </section>
+
       <!-- SECTION VaultsArea -->
-      <div class="p-5 m-md-5 m-1">
+      <div class="px-5 mx-md-5 mx-1">
         <h1>Vaults</h1>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
@@ -46,6 +59,7 @@ import { vaultsService } from '../services/VaultsService';
 export default {
   setup() {
     const route = useRoute();
+
     onMounted(() => {
       getProfileKeeps();
       getProfileVaults();
@@ -67,9 +81,12 @@ export default {
       }
     }
     return {
+      route,
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.vaults),
+      activeVault: computed(() => AppState.vaults.find(v => v.creatorId == route.params.profileId))
+      // coverImg: computed(() => `url(${AppState.vaults.find(v => v.creatorId == route.params.profileId).creator.coverImg})`),
     };
   },
   components: { VaultCard, BasicKeepCard }
@@ -78,7 +95,18 @@ export default {
 
 
 <style lang="scss" scoped>
-@media (min-width: 1200px) {
+.profileArea {
+  height: 25vh;
+}
+
+.coverImg {
+  height: 60%;
+  width: 100%;
+  object-position: center;
+  object-fit: cover;
+}
+
+@media(min-width: 1200px) {
   .masonry {
     columns: 4;
     column-gap: 40px;
@@ -102,5 +130,10 @@ export default {
 .mason {
   margin-bottom: 15px;
   break-inside: avoid;
+}
+
+.movePic {
+  position: relative;
+  bottom: 90px;
 }
 </style>
