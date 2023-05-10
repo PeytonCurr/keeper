@@ -4,6 +4,8 @@ export class Profile {
     this.name = data.name
     this.picture = data.picture
     this.coverImg = data.coverImg
+    this.createdAt = new Date(data.createdAt)
+    this.updatedAt = new Date(data.updatedAt)
   }
 }
 export class Account extends Profile {

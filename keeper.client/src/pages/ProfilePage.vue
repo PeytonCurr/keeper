@@ -1,11 +1,11 @@
 <template>
-  <section class="row p-md-5 p-1">
-    <div class="col-12 p-md-5 p-1">
+  <section class="row px-md-5 pt-4 px-1">
+    <div class="col-12 px-md-5 px-1">
 
       <!-- SECTION ProfileArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
         <div class="col-12">
-          <img class="coverImg" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
+          <img class="coverImg px-5 mr-5" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
         </div>
         <div class="col-12 text-center movePic">
           <img class="rounded-circle elevation-5 border border-2" :src="activeVault?.creator.picture" height="100"
@@ -96,14 +96,13 @@ export default {
 
 <style lang="scss" scoped>
 .profileArea {
-  height: 25vh;
+  height: 45vh;
 }
 
 .coverImg {
-  height: 60%;
+  height: 30vh;
   width: 100%;
   object-position: center;
-  object-fit: cover;
 }
 
 @media(min-width: 1200px) {
@@ -134,6 +133,6 @@ export default {
 
 .movePic {
   position: relative;
-  bottom: 90px;
+  bottom: 60px;
 }
 </style>
