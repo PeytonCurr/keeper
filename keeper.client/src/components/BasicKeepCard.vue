@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 keepImg rounded elevation-5 text-end">
-    <button class="btn bg-danger rounded-circle deleteBtn elevation-5" v-if="account?.id == route.params.profileId"> <i
-        class="mdi mdi-alpha-x smallText"></i>
+    <button class="btn bg-danger rounded-circle deleteBtn elevation-5" v-if="account?.id == route.params.accountId"
+      @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
     </button>
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
     <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
@@ -12,10 +12,12 @@
 
 
 <script lang="ts">
-import { computed } from 'vue';
+import { computed, popScopeId } from 'vue';
 import { Keep } from '../models/Keep';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
+import Pop from '../utils/Pop';
+import { keepsService } from '../services/KeepsService';
 
 export default {
 
@@ -29,6 +31,17 @@ export default {
       route,
       keepImg: computed(() => `url(${props.keep.img})`),
       account: computed(() => AppState.account),
+
+      async deleteKeep(keepId) {
+        try {
+          if (await Pop.confirm("Are you sure you want to Delete This Keep?")) {
+            await keepsService.deleteKeep(keepId);
+            Pop.toast("You Keep was Successfully Deleted")
+          }
+        } catch (error) {
+          Pop.error(error);
+        }
+      }
     }
   }
 }

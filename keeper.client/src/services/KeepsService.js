@@ -27,6 +27,17 @@ class KeepsService {
     // logger.log("[Logging Res.Data]", res.data);
     AppState.keeps = res.data.map(k => new Keep(k))
   }
+  async createKeep(keepData) {
+    const res = await api.post(`api/keeps`, keepData);
+    AppState.keeps.push(new Keep(res.data))
+    logger.log("[logging AppState Keeps]", AppState.keeps)
+  }
+
+  async deleteKeep(keepId) {
+    const res = await api.delete(`api/keeps/${keepId}`)
+    AppState.keeps = AppState.keeps.filter(k => k.id != keepId)
+  }
+
 }
 
 export const keepsService = new KeepsService();
