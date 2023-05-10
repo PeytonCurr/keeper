@@ -19,6 +19,7 @@ import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService';
+import { VaultKeep } from '../models/VaultKeep';
 
 export default {
 

@@ -1,3 +1,5 @@
+import { Keep } from "./Keep.js"
+
 export class VaultKeep {
   constructor(data) {
     this.id = data.id
@@ -6,5 +8,12 @@ export class VaultKeep {
     this.creatorId = data.creatorId
     this.createdAt = new Date(data.createdAt)
     this.updatedAt = new Date(data.updatedAt)
+  }
+}
+
+export class VaultedKeep extends Keep {
+  constructor(data) {
+    super(data)
+    this.vaultKeepId = data.vaultKeepId
   }
 }
