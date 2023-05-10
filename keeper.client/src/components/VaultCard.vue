@@ -1,6 +1,6 @@
 <template>
   <router-link class="hovEffect" :to="{ name: 'VaultDetails', params: { vaultId: vault?.id } }">
-    <div class="col-12 vaultImg rounded elevation-5"
+    <div class="col-12 vaultImg rounded elevation-5 text-end"
       :class="{ 'selectable': !vault?.isPrivate || vault?.creatorId == account.id }">
       <img :src="vault?.img" class="img-fluid" style="visibility: hidden;">
       <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
@@ -28,13 +28,18 @@ import { computed } from 'vue';
 import { Vault } from '../models/Vault';
 import VaultKeepDetails from './VaultKeepDetails.vue';
 import { AppState } from '../AppState';
+import { useRoute } from 'vue-router';
+import Pop from '../utils/Pop';
+import { vaultsService } from '../services/VaultsService';
 
 export default {
   props: {
     vault: { type: Vault, Required: true }
   },
   setup(props) {
+    const route = useRoute();
     return {
+      route,
       vaultImg: computed(() => `url(${props.vault.img})`),
       account: computed(() => AppState.account),
     };
@@ -45,6 +50,32 @@ export default {
 
 
 <style lang="scss" scoped>
+.smallText {
+  font-size: 20px;
+  position: relative;
+  right: 10px;
+  bottom: 10px;
+}
+
+.deleteBtn {
+  height: 25px;
+  width: 25px;
+  position: relative;
+  left: 12px;
+  bottom: 12px;
+}
+
+.deleteBtn:hover {
+  filter: brightness(.80);
+}
+
+.deleteBtn:hover.smallText {
+  font-size: 25px;
+  position: relative;
+  right: 12px;
+  bottom: 14px;
+}
+
 .vaultImg {
   width: 100%;
   background-image: v-bind(vaultImg);

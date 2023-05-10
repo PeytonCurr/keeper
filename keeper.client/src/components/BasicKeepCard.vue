@@ -1,7 +1,8 @@
 <template>
   <div class="col-12 keepImg rounded elevation-5 text-end">
-    <button class="btn bg-danger rounded-circle deleteBtn elevation-5" v-if="account?.id == route.params.accountId"
-      @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
+    <button title="Delete Keep" class="btn bg-danger rounded-circle deleteBtn elevation-5"
+      v-if="account?.id == route.params.accountId" @click.stop="deleteKeep(keep?.id)"> <i
+        class="mdi mdi-alpha-x smallText"></i>
     </button>
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
     <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
@@ -50,10 +51,10 @@ export default {
 
 <style lang="scss" scoped>
 .smallText {
-  font-size: 25px;
+  font-size: 20px;
   position: relative;
-  right: 12px;
-  bottom: 14px;
+  right: 10px;
+  bottom: 10px;
 }
 
 .deleteBtn {
