@@ -66,6 +66,7 @@ import BasicKeepCard from '../components/BasicKeepCard.vue'
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop';
 import { router } from '../router';
+import { logger } from '../utils/Logger';
 
 export default {
   setup() {
@@ -81,7 +82,14 @@ export default {
         await keepsService.getVaultKeeps(route.params.vaultId);
       }
       catch (error) {
-        Pop.error(error);
+        let errorMessage = error.response.data;
+        if (errorMessage == "You are not Authorized to Get this Private Vault") {
+          logger.error(error)
+          Pop.toast(errorMessage, "error")
+          router.push({ name: "Home" })
+        } else {
+          Pop.error(error);
+        }
       }
     }
     async function getActiveVault() {
