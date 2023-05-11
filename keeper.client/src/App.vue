@@ -8,6 +8,7 @@
   <footer class="foot sticky-bottom">
     <Footbar />
   </footer>
+
   <Modal id="newKeep" size="modal-md">
     <template #content>
       <CreateKeep />

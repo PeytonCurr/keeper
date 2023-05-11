@@ -67,6 +67,7 @@ export default {
 
 .glass {
   background-color: #ddd5e019;
+  text-shadow: 2px 1px black;
 }
 
 @media (min-width: 576px) {

@@ -24,9 +24,9 @@
         <div class="d-flex align-items-center justify-content-between">
 
           <form id="vaultPicker" class="creator" @submit.prevent="saveToVault(keep?.id)" v-if="account?.id">
-            <select class="form-select form-select-sm border-dark border-3" aria-label=".form-select-sm"
+            <select class="form-select form-select-md border-dark border-3" aria-label=".form-select-md"
               v-model="selectable">
-              ,<option value="" selected disabled hidden>Save to a Vault...</option>
+              <option value="" selected disabled hidden>Save to a Vault...</option>
               <option class="bg-grey" v-for="vault in vaults">{{ vault.name + " ID: " + vault.id }}</option>
             </select>
             <button type="submit" class="btn bg-secondary px-2 py-0 fw-bold ms-2">Save</button>
@@ -111,7 +111,9 @@ export default {
 .HeroImg {
   min-height: 43vh;
   max-height: 53vh;
+  height: 100%;
   width: 100%;
+  object-fit: cover;
   object-position: center;
 }
 

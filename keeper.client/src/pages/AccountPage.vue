@@ -5,7 +5,7 @@
       <!-- SECTION AccountArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
         <div class="col-12 text-center">
-          <img class="coverImg shadow" :src="account?.coverImg" alt="Profile CoverImg">
+          <img class="shadow" :src="account?.coverImg" alt="Profile CoverImg">
 
         </div>
         <div class="col-12 text-center">
@@ -157,6 +157,7 @@ export default {
 .coverImg {
   height: 30vh;
   width: 70%;
+  object-fit: cover;
   object-position: center;
   border-radius: 5px;
 }
@@ -184,6 +185,7 @@ export default {
   .coverImg {
     height: 30vh;
     width: 100%;
+    object-fit: cover;
     object-position: center;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-light px-5 row text-dark pb-2 border-bottom border-3">
+  <div class="bg-light px-5 row text-dark pb-2 border-bottom border-3 m-0">
     <div class="col-4 d-flex align-items-center">
       <router-link class="d-flex" :to="{ name: 'Home' }">
         <button class="btn bg-secondary px-2 py-0 fw-bold">Home</button>

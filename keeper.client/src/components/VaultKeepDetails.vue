@@ -23,7 +23,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
           <button class="btn bg-secondary px-2 py-0 fw-bold ms-2" @click.stop="removeKeepFromVault()"
-            v-if="activeVault?.id"> <i class="mdi mdi-circle-off-outline"></i>
+            v-if="account?.id != null && activeVault?.id"> <i class="mdi mdi-circle-off-outline"></i>
             Remove From Vault</button>
 
 
@@ -123,7 +123,9 @@ export default {
 .HeroImg {
   min-height: 43vh;
   max-height: 53vh;
+  height: 100%;
   width: 100%;
+  object-fit: cover;
   object-position: center;
 }
 
