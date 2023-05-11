@@ -18,12 +18,12 @@
             <div class="col-12 mb-3">
               <label class="keepFont" for="name">Name</label>
               <input type="text" class="form-control border-bottom border-dark" required id="name"
-                v-model="selectable.name" placeholder="Enter Name of Event..." minlength="3" maxlength="50">
+                v-model="selectable.name" placeholder="Enter Name of Vault..." minlength="3" maxlength="50">
             </div>
             <div class="col-12 mb-3">
               <label class="keepFont" for="description">Description</label>
               <textarea cols="30" rows="5" minlength="3" maxlength="1000" class="form-control border-bottom border-dark"
-                v-model="selectable.description" required placeholder="Enter description of Event..."
+                v-model="selectable.description" required placeholder="Enter description of Vault..."
                 id="description"></textarea>
             </div>
             <div>
@@ -54,18 +54,21 @@ import Pop from '../utils/Pop';
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
 import { vaultsService } from '../services/VaultsService';
+import { useRoute } from 'vue-router';
 
 export default {
   setup() {
+    const route = useRoute();
     const selectable = ref({});
 
     return {
+      route,
       selectable,
       account: computed(() => AppState.account),
 
       async createVault() {
         try {
-          await vaultsService.createVault(selectable.value);
+          await vaultsService.createVault(selectable.value, route);
         } catch (error) {
           Pop.error(error);
         }

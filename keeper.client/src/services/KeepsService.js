@@ -28,10 +28,16 @@ class KeepsService {
     // logger.log("[Logging Res.Data]", res.data);
     AppState.keeps = res.data.map(k => new Keep(k))
   }
-  async createKeep(keepData) {
+  async createKeep(keepData, route) {
+
     const res = await api.post(`api/keeps`, keepData);
-    AppState.keeps.push(new Keep(res.data))
-    logger.log("[logging AppState Keeps]", AppState.keeps)
+    logger.log(route.params.accountId)
+    if (route.params.accountId == null && route.params.profileId == null) {
+      AppState.keeps.push(new Keep(res.data))
+    }
+    if (res.data.creatorId == route.params.accountId) {
+      AppState.keeps.push(new Keep(res.data))
+    }
   }
 
   async deleteKeep(keepId) {

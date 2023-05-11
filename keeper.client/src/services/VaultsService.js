@@ -28,10 +28,15 @@ class VaultsService {
     AppState.vaults = res.data.map(v => new Vault(v));
   }
 
-  async createVault(vaultData) {
+  async createVault(vaultData, route) {
     const res = await api.post(`api/vaults`, vaultData);
-    AppState.vaults.push(new Vault(res.data))
-    logger.log("[logging AppState Vaults]", AppState.vaults)
+    if (route.params.accountId == null && route.params.profileId == null) {
+      AppState.vaults.push(new Vault(res.data))
+    }
+    if (res.data.creatorId == route.params.accountId) {
+      AppState.vaults.push(new Vault(res.data))
+    }
+    // logger.log("[logging AppState Vaults]", AppState.vaults)
   }
 
   async deleteVault(vaultId) {
