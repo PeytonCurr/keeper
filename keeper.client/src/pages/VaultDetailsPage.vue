@@ -5,7 +5,7 @@
       <!-- SECTION VaultArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
         <div class="col-12 text-center">
-          <img class="coverImg" :src="activeVault?.img" alt="Profile CoverImg">
+          <img class="coverImg shadow" :src="activeVault?.img" alt="Profile CoverImg">
         </div>
         <div class="col-12 text-center">
           <section class="row justify-content-center short">
@@ -139,6 +139,7 @@ export default {
   height: 30vh;
   width: 70%;
   object-position: center;
+  border-radius: 5px;
 }
 
 .fitImg {

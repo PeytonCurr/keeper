@@ -5,7 +5,7 @@
       <!-- SECTION ProfileArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
         <div class="col-12 text-center">
-          <img class="coverImg" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
+          <img class="coverImg shadow" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
         </div>
         <div class="col-12 text-center movePic">
           <img class="rounded-circle elevation-5 border border-2" :src="activeVault?.creator.picture" height="100"
@@ -103,6 +103,7 @@ export default {
   height: 30vh;
   width: 70%;
   object-position: center;
+  border-radius: 5px;
 }
 
 @media(min-width: 1200px) {

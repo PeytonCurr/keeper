@@ -1,5 +1,6 @@
 <template>
-  <div class="col-12 keepImg rounded elevation-5 text-end">
+  <div class="col-12 keepImg rounded elevation-5 text-end" data-bs-toggle="modal"
+    :data-bs-target="`#vaultedKeepDetails-${keep?.id}`">
     <button title="Delete Keep" class="btn bg-danger rounded-circle deleteBtn elevation-5"
       v-if="account?.id != null && account?.id == route.params.accountId && activeVault?.id == null"
       @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
@@ -13,17 +14,23 @@
       <h4 class="text-start text-light keepFont m-0">{{ keep?.name }}</h4>
     </div>
   </div>
+
+  <Modal class="toggleLarge" :id="`vaultedKeepDetails-${keep?.id}`" size="modal-xl">
+    <template #content>
+      <VaultKeepDetails :keep="keep" />
+    </template>
+  </Modal>
 </template>
 
 
 <script lang="ts">
-import { computed, popScopeId } from 'vue';
+import { computed } from 'vue';
 import { Keep } from '../models/Keep';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService';
-import { VaultKeep } from '../models/VaultKeep';
+import VaultKeepDetails from '../components/VaultKeepDetails.vue'
 
 export default {
 
