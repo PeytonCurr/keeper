@@ -31,7 +31,7 @@ class KeepsService {
   async createKeep(keepData, route) {
 
     const res = await api.post(`api/keeps`, keepData);
-    logger.log(route.params.accountId)
+    // logger.log(route.params.accountId)
     if (route.params.accountId == null && route.params.profileId == null) {
       AppState.keeps.push(new Keep(res.data))
     }

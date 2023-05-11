@@ -108,15 +108,15 @@ GROUP BY (k.id)
   internal List<VaultedKeep> GetKeepsInVault(int vaultId)
   {
     string sql = @"
-
 SELECT
-vk.*,
-vaultedKeep.*,
-COUNT(vk.keepId) AS kept,
-acct.*
+    vk.*,
+    vaultedKeep.*,
+    COUNT(vkv.keepId) AS kept,
+    acct.*
 FROM vaultKeeps vk
-JOIN keeps vaultedKeep ON vk.keepId = vaultedKeep.id
-JOIN accounts acct ON acct.id = vaultedKeep.creatorId
+    JOIN keeps vaultedKeep ON vk.keepId = vaultedKeep.id
+    LEFT JOIN vaultKeeps vkv ON vkv.keepId = vaultedKeep.id
+    JOIN accounts acct ON acct.id = vaultedKeep.creatorId
 WHERE vk.vaultId = @vaultId
 GROUP BY (vk.id)
 ;";

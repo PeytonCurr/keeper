@@ -53,12 +53,13 @@ CREATE TABLE
     ) default charset utf8mb4 COMMENT '';
 
 SELECT
-    k.*,
-    COUNT(vk.keepId) AS kept,
-    acct.*,
-    vk.*
-FROM keeps k
-    JOIN accounts acct ON acct.id = k.creatorId
-    LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
-WHERE vk.vaultId = 7
-GROUP BY (vk.id);
+    vk.*,
+    vaultedKeep.*,
+    COUNT(vkv.keepId) AS kept,
+    acct.*
+FROM vaultKeeps vk
+    JOIN keeps vaultedKeep ON vk.keepId = vaultedKeep.id
+    LEFT JOIN vaultKeeps vkv ON vkv.keepId = vaultedKeep.id
+    JOIN accounts acct ON acct.id = vaultedKeep.creatorId
+WHERE vk.vaultId = 88
+GROUP BY (vk.id)
