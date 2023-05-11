@@ -19,7 +19,8 @@
 
             <div class="col-3">
               <div class="dropdown text-center justify-self-end d-flex" v-if="account?.id == activeVault?.creatorId">
-                <span class="ms-xl-2 ms-0 ps-lg-5 ps-md-4 ps-sm-5 ps-4 fw-bold fs-3 no-select" type="button"
+                <span title="Delete Vault Dropdown"
+                  class="ms-xl-2 ms-0 ps-lg-5 ps-md-4 ps-sm-5 ps-4 fw-bold fs-3 no-select" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   ...
                 </span>

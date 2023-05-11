@@ -1,6 +1,5 @@
 <template>
-  <div class="col-12 keepImg rounded elevation-5 text-end" data-bs-toggle="modal"
-    :data-bs-target="`#vaultedKeepDetails-${keep?.id}`">
+  <div title="See Details" class="col-12 keepImg rounded elevation-5 text-end selectable" @click="openModal()">
     <button title="Delete Keep" class="btn bg-danger rounded-circle deleteBtn elevation-5"
       v-if="account?.id != null && account?.id == route.params.accountId && activeVault?.id == null"
       @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
@@ -27,6 +26,7 @@ import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { keepsService } from '../services/KeepsService';
 import VaultKeepDetails from '../components/VaultKeepDetails.vue'
+import { Modal } from 'bootstrap';
 
 export default {
 
@@ -42,6 +42,11 @@ export default {
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
 
+      async openModal() {
+        Modal.getOrCreateInstance(`#vaultedKeepDetails-${props.keep.id}`).show()
+        this.increaseViews();
+      },
+
       async deleteKeep(keepId) {
         try {
           if (await Pop.confirm("Are you sure you want to Delete This Keep?")) {
@@ -51,7 +56,15 @@ export default {
         } catch (error) {
           Pop.error(error);
         }
-      }
+      },
+      async increaseViews() {
+        try {
+          props.keep.views++
+          await keepsService.increaseViews(props.keep);
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
     }
   }
 }

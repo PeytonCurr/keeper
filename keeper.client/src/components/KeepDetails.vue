@@ -35,7 +35,7 @@
           <router-link :title="`Go to ${keep?.creator.name}'s Page`" class="hovEffect"
             :to="{ name: page, params: paramId }">
             <div class="creator align-items-center p-2" data-bs-dismiss="modal" aria-label="Close">
-              <img :title="keep?.creator.name" :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
+              <img :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
               <h6 class="text-end">{{ keep?.creator.name }}</h6>
             </div>
           </router-link>

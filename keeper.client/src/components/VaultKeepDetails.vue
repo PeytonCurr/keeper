@@ -22,14 +22,15 @@
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-          <button class="btn bg-secondary px-2 py-0 fw-bold ms-2" @click.stop="removeKeepFromVault()"> <i
-              class="mdi mdi-circle-off-outline"></i>
+          <button class="btn bg-secondary px-2 py-0 fw-bold ms-2" @click.stop="removeKeepFromVault()"
+            v-if="activeVault?.id"> <i class="mdi mdi-circle-off-outline"></i>
             Remove From Vault</button>
 
 
-          <router-link class="hovEffect" :to="{ name: page, params: paramId }">
+          <router-link :title="`Go to ${keep?.creator.name}'s Page`" class="hovEffect"
+            :to="{ name: page, params: paramId }">
             <div class="creator align-items-center p-2" data-bs-dismiss="modal" aria-label="Close">
-              <img :title="keep?.creator.name" :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
+              <img :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
               <h6 class="text-end">{{ keep?.creator.name }}</h6>
             </div>
           </router-link>
@@ -80,6 +81,7 @@ export default {
       vaults: computed(() => AppState.vaults),
       page: computed(() => AppState.account.id == props.keep.creatorId ? "Account" : "Profile"),
       paramId: computed(() => AppState.account.id == props.keep.creatorId ? { accountId: AppState.account.id } : { profileId: props.keep.creatorId }),
+      activeVault: computed(() => AppState.activeVault),
 
       async saveToVault(keepId) {
         try {

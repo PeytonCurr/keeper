@@ -74,8 +74,8 @@ export default {
     }
     async function getProfileVaults() {
       try {
+        AppState.activeVault = null
         await vaultsService.getProfileVaults(route.params.profileId);
-
       } catch (error) {
         Pop.error(error);
       }

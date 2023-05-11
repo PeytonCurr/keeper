@@ -27,7 +27,7 @@
 
     <div class="col-4 d-flex align-items-center justify-content-end">
       <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <Login title="Account Dropdown" />
     </div>
   </div>
 </template>

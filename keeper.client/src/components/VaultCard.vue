@@ -1,5 +1,6 @@
 <template>
-  <router-link class="hovEffect" :to="{ name: 'VaultDetails', params: { vaultId: vault?.id } }">
+  <router-link title="Go to Vault Details" class="hovEffect"
+    :to="{ name: 'VaultDetails', params: { vaultId: vault?.id } }">
     <div class="col-12 vaultImg rounded elevation-5 text-end"
       :class="{ 'selectable': !vault?.isPrivate || vault?.creatorId == account.id }">
       <img :src="vault?.img" class="img-fluid" style="visibility: hidden;">
