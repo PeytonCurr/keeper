@@ -121,6 +121,7 @@ export default {
     }
     async function getMyVaults() {
       try {
+        AppState.activeVault = null
         await vaultsService.getMyVaults();
       } catch (error) {
         Pop.error(error);

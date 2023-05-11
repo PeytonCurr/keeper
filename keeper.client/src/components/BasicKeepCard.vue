@@ -5,10 +5,6 @@
       v-if="account?.id != null && account?.id == route.params.accountId && activeVault?.id == null"
       @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
     </button>
-    <button title="Delete Keep" class="btn bg-danger rounded-circle deleteBtn elevation-5"
-      v-if="account?.id != null && activeVault?.id != null && account?.id == activeVault?.creatorId"
-      @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
-    </button>
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
     <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
       <h4 class="text-start text-light keepFont m-0">{{ keep?.name }}</h4>
@@ -50,7 +46,7 @@ export default {
         try {
           if (await Pop.confirm("Are you sure you want to Delete This Keep?")) {
             await keepsService.deleteKeep(keepId);
-            Pop.toast("You Keep was Successfully Deleted")
+            Pop.toast("Your Keep was Successfully Deleted")
           }
         } catch (error) {
           Pop.error(error);

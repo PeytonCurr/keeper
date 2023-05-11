@@ -45,7 +45,14 @@ class KeepsService {
     const res = await api.get(`api/vaults/${vaultId}/keeps`)
     AppState.vaultedKeeps = res.data.map(k => new VaultedKeep(k))
   }
-
+  async DeleteVaultKeep(keepId) {
+    const foundVaultedKeep = AppState.vaultedKeeps.find(vk => vk.id == keepId)
+    logger.log(foundVaultedKeep)
+    const vaultKeepId = foundVaultedKeep.vaultKeepId
+    const res = await api.delete(`api/vaultKeeps/${vaultKeepId}`)
+    logger.log("[logging Res Data]", res.data)
+    AppState.vaultedKeeps = AppState.vaultedKeeps.filter(vk => vk.vaultKeepId != vaultKeepId)
+  }
 
 }
 

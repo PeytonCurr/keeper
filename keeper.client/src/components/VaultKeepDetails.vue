@@ -22,7 +22,8 @@
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-          <button class="btn bg-secondary px-2 py-0 fw-bold ms-2"> <i class="mdi mdi-circle-off-outline"></i>
+          <button class="btn bg-secondary px-2 py-0 fw-bold ms-2" @click.stop="removeKeepFromVault()"> <i
+              class="mdi mdi-circle-off-outline"></i>
             Remove From Vault</button>
 
 
@@ -48,6 +49,9 @@ import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { vaultsService } from '../services/VaultsService';
+import { keepsService } from '../services/KeepsService';
+import { useRoute } from 'vue-router';
+import { Modal } from 'bootstrap';
 
 export default {
 
@@ -57,6 +61,7 @@ export default {
 
   setup(props) {
     const selectable = ref("")
+    const route = useRoute();
     // const signedIn = ref("")
     // const signedOut = ref("")
 
@@ -69,6 +74,7 @@ export default {
     return {
       // signedIn,
       // signedOut,
+      route,
       selectable,
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.vaults),
@@ -84,6 +90,18 @@ export default {
           Pop.error(error);
         }
       },
+
+      async removeKeepFromVault() {
+        try {
+          if (await Pop.confirm("Are you sure you want to Remove This Keep From your Vault?")) {
+            Modal.getOrCreateInstance(`#vaultedKeepDetails-${props.keep.id}`).hide()
+            await keepsService.DeleteVaultKeep(props.keep.id);
+            Pop.toast("The Keep was Successfully Removed")
+          }
+        } catch (error) {
+          Pop.error(error);
+        }
+      }
 
     }
   }

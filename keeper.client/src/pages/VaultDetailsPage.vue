@@ -11,7 +11,7 @@
           <section class="row justify-content-center short">
             <div class="col-3"></div>
 
-            <div class="col-6 movePic keepFont text-light">
+            <div class="col-6 movePic keepFont text-light glass">
               <h1 class="mt-2">{{ activeVault?.name }}</h1>
               <h4 class="mt-2">By: {{ activeVault?.creator.name }}</h4>
             </div>
@@ -146,6 +146,15 @@ export default {
   height: 30vh;
 }
 
+.movePic {
+  position: relative;
+  bottom: 150px;
+}
+
+.glass {
+  background-color: #ddd5e019;
+}
+
 @media(min-width: 1200px) {
   .masonry {
     columns: 4;
@@ -171,16 +180,16 @@ export default {
     width: 100%;
     object-position: center;
   }
+
+  .movePic {
+    position: relative;
+    bottom: 180px;
+  }
 }
 
 .mason {
   margin-bottom: 15px;
   break-inside: avoid;
-}
-
-.movePic {
-  position: relative;
-  bottom: 120px;
 }
 
 .short {
