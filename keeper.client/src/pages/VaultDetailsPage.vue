@@ -41,12 +41,12 @@
       <!-- SECTION KeepsArea -->
       <div class="px-md-5 mx-md-5 mx-1">
         <h1>Keeps</h1>
+        <h2 v-if="!keeps[0]?.id" class="my-5">There are no Keeps in this Vault</h2>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
           <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
             <BasicKeepCard :keep="keep" />
           </div>
-
         </section>
       </div>
       <br>
@@ -147,6 +147,7 @@ export default {
 .coverImg {
   height: 30vh;
   width: 70%;
+  object-fit: cover;
   object-position: center;
   border-radius: 5px;
 }
@@ -187,6 +188,7 @@ export default {
   .coverImg {
     height: 30vh;
     width: 100%;
+    object-fit: cover;
     object-position: center;
   }
 

@@ -5,7 +5,7 @@
       <!-- SECTION AccountArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
         <div class="col-12 text-center">
-          <img class="shadow" :src="account?.coverImg" alt="Profile CoverImg">
+          <img class="coverImg shadow" :src="account?.coverImg" alt="Profile CoverImg">
 
         </div>
         <div class="col-12 text-center">
@@ -63,12 +63,12 @@
       <!-- SECTION VaultsArea -->
       <div class="px-md-5 mx-md-5 mx-1">
         <h1>Vaults</h1>
+        <h2 v-if="!vaults[0]?.id" class="my-5">You Do Not Have any Vaults</h2>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
           <div class="mason elevation-5 rounded no-select" v-for="vault in vaults" :key="vault?.id">
             <VaultCard :vault="vault" />
           </div>
-
         </section>
       </div>
 
@@ -76,6 +76,7 @@
       <!-- SECTION KeepsArea -->
       <div class="px-md-5 mx-md-5 mx-1">
         <h1>Keeps</h1>
+        <h2 v-if="!keeps[0]?.id" class="my-5">You Do Not Have any Keeps</h2>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
           <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
