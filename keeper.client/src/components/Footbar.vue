@@ -8,17 +8,19 @@
     </div>
 
     <div class="col-4 d-flex justify-content-center align-items-center">
-      <div class="dropdown">
+      <div class="dropdown" v-if="account?.id">
         <button class="btn dropdown-toggle px-2 py-1 fw-bold" type="button" data-bs-toggle="dropdown"
           aria-expanded="false">
           Create
         </button>
         <ul class="dropdown-menu bg-grey border-dark border-3">
-          <li><button class="btn dropdown-item pb-2 fw-bold listBtn">New Keep</button></li>
+          <li><button class="btn dropdown-item pb-2 fw-bold listBtn" data-bs-toggle="modal" data-bs-target="#newKeep">New
+              Keep</button></li>
           <li>
             <div class="listDiv"></div>
           </li>
-          <li><button class="btn dropdown-item pt-2 fw-bold listBtn">New Vault</button></li>
+          <li><button class="btn dropdown-item pt-2 fw-bold listBtn" data-bs-toggle="modal" data-bs-target="#newVault">New
+              Vault</button></li>
         </ul>
       </div>
     </div>
@@ -32,9 +34,14 @@
 
 <script>
 import Login from './Login.vue'
+import { computed } from 'vue';
+import { AppState } from '../AppState.js';
+
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account),
+    }
   },
   components: { Login }
 }
