@@ -1,8 +1,12 @@
 <template>
   <div class="col-12 keepImg rounded elevation-5 text-end">
     <button title="Delete Keep" class="btn bg-danger rounded-circle deleteBtn elevation-5"
-      v-if="account?.id == route.params.accountId" @click.stop="deleteKeep(keep?.id)"> <i
-        class="mdi mdi-alpha-x smallText"></i>
+      v-if="account?.id != null && account?.id == route.params.accountId && activeVault?.id == null"
+      @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
+    </button>
+    <button title="Delete Keep" class="btn bg-danger rounded-circle deleteBtn elevation-5"
+      v-if="account?.id != null && activeVault?.id != null && account?.id == activeVault?.creatorId"
+      @click.stop="deleteKeep(keep?.id)"> <i class="mdi mdi-alpha-x smallText"></i>
     </button>
     <img :src="keep?.img" class="img-fluid" style="visibility: hidden;">
     <div class="d-flex align-items-center justify-content-between px-md-3 py-2 px-1 glass">
@@ -33,6 +37,7 @@ export default {
       route,
       keepImg: computed(() => `url(${props.keep.img})`),
       account: computed(() => AppState.account),
+      activeVault: computed(() => AppState.activeVault),
 
       async deleteKeep(keepId) {
         try {

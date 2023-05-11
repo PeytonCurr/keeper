@@ -4,8 +4,8 @@
 
       <!-- SECTION ProfileArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
-        <div class="col-12">
-          <img class="coverImg px-5 mr-5" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
+        <div class="col-12 text-center">
+          <img class="coverImg" :src="activeVault?.creator.coverImg" alt="Profile CoverImg">
         </div>
         <div class="col-12 text-center movePic">
           <img class="rounded-circle elevation-5 border border-2" :src="activeVault?.creator.picture" height="100"
@@ -36,9 +36,9 @@
           <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
             <BasicKeepCard :keep="keep" />
           </div>
-
         </section>
       </div>
+      <br>
 
 
     </div>
@@ -101,7 +101,7 @@ export default {
 
 .coverImg {
   height: 30vh;
-  width: 100%;
+  width: 70%;
   object-position: center;
 }
 
@@ -123,6 +123,12 @@ export default {
   .masonry {
     columns: 2;
     column-gap: 35px;
+  }
+
+  .coverImg {
+    height: 30vh;
+    width: 100%;
+    object-position: center;
   }
 }
 

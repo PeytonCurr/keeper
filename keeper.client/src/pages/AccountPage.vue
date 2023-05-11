@@ -11,40 +11,43 @@
         <div class="col-12 text-center">
 
           <section class="row justify-content-center">
-            <div class="col-4"></div>
+            <div class="col-3"></div>
 
-            <div class="col-3 movePic">
+            <div class="col-6  movePic">
               <img class="rounded-circle elevation-5 border border-2" :src="account?.picture" height="100"
                 alt="Profile Pic">
             </div>
 
-            <div class="col-4">
-              <div class="dropdown text-center justify-self-end" v-if="account?.id == route.params.accountId">
-                <div class="py-1 ps-xl-5 ms-xl-5 fw-bold fs-3 no-select" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
+            <div class="col-3">
+              <div class="dropdown text-center justify-self-end d-flex" v-if="account?.id == route.params.accountId">
+                <span title="Edit Account" class="ms-xl-2 ms-0 ps-lg-5 ps-md-4 ps-sm-5 ps-4 fw-bold fs-3 no-select"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   ...
-                </div>
+                </span>
 
                 <form class="dropdown-menu bg-grey border-dark border-3 p-2 elevation-5 no-select"
                   @submit.prevent="editAccount()">
                   <section class="row">
-                    <div class="col-12 mb-3">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" required id="name" v-model="selectable.name"
-                        placeholder="Enter Name" minlength="3" maxlength="50">
+                    <div class="col-12 text-center">
+                      <h3 class="keepFont">Edit Account</h3>
                     </div>
                     <div class="col-12 mb-3">
-                      <label for="picture">Picture</label>
-                      <input type="url" class="form-control" required id="picture" v-model="selectable.picture"
-                        placeholder="Enter Picture" maxlength="500">
+                      <label class="keepFont" for="name">Name</label>
+                      <input type="text" class="form-control border-bottom border-dark" required id="name"
+                        v-model="selectable.name" placeholder="Enter Name" minlength="3" maxlength="50">
                     </div>
                     <div class="col-12 mb-3">
-                      <label for="coverImg">CoverImg</label>
-                      <input type="url" class="form-control" required id="coverImg" v-model="selectable.coverImg"
-                        placeholder="Enter CoverImg" maxlength="500">
+                      <label class="keepFont" for="picture">Picture</label>
+                      <input type="url" class="form-control border-bottom border-dark" required id="picture"
+                        v-model="selectable.picture" placeholder="Enter Picture" maxlength="500">
+                    </div>
+                    <div class="col-12 mb-3">
+                      <label class="keepFont" for="coverImg">CoverImg</label>
+                      <input type="url" class="form-control border-bottom border-dark" required id="coverImg"
+                        v-model="selectable.coverImg" placeholder="Enter CoverImg" maxlength="500">
                     </div>
                   </section>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary keepFont">Submit</button>
                 </form>
 
               </div>
@@ -62,7 +65,7 @@
         <h1>Vaults</h1>
         <section class="masonry">
           <!-- STUB BasicKeepCard -->
-          <div class="mason elevation-5 rounded" v-for="vault in vaults" :key="vault?.id">
+          <div class="mason elevation-5 rounded no-select" v-for="vault in vaults" :key="vault?.id">
             <VaultCard :vault="vault" />
           </div>
 
@@ -78,9 +81,9 @@
           <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
             <BasicKeepCard :keep="keep" />
           </div>
-
         </section>
       </div>
+      <br>
 
 
     </div>
@@ -174,6 +177,12 @@ export default {
   .masonry {
     columns: 2;
     column-gap: 35px;
+  }
+
+  .coverImg {
+    height: 30vh;
+    width: 100%;
+    object-position: center;
   }
 }
 

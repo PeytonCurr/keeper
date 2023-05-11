@@ -41,7 +41,7 @@ class KeepsService {
 
 
   async getVaultKeeps(vaultId) {
-    AppState.vaultedKeeps
+    AppState.vaultedKeeps = []
     const res = await api.get(`api/vaults/${vaultId}/keeps`)
     AppState.vaultedKeeps = res.data.map(k => new VaultedKeep(k))
   }

@@ -4,43 +4,36 @@
 
       <!-- SECTION VaultArea -->
       <section class="px-md-5 mx-md-5 mx-1 row profileArea">
-        <div class="col-12">
-          <img class="coverImg px-5 mr-5" :src="activeVault?.img" alt="Profile CoverImg">
+        <div class="col-12 text-center">
+          <img class="coverImg" :src="activeVault?.img" alt="Profile CoverImg">
         </div>
-        <div class="col-12 text-center movePic">
-          <section class="row justify-content-center">
-            <div class="col-4"></div>
+        <div class="col-12 text-center">
+          <section class="row justify-content-center short">
+            <div class="col-3"></div>
 
-            <div class="col-3 movePic">
-              <img class="rounded-circle elevation-5 border border-2" :src="activeVault?.creator.picture" height="100"
-                alt="Profile Pic">
+            <div class="col-6 movePic keepFont text-light">
+              <h1 class="mt-2">{{ activeVault?.name }}</h1>
+              <h4 class="mt-2">By: {{ activeVault?.creator.name }}</h4>
             </div>
 
-            <div class="col-4">
-              <div class="dropdown text-center justify-self-end" v-if="account?.id == activeVault?.creatorId">
-                <div class="py-1 ps-xl-5 ms-xl-5 fw-bold fs-3 no-select" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  ...
-                </div>
 
-                <ul class="dropdown-menu bg-grey border-dark border-3">
-                  <li><button class="btn dropdown-item pb-2 fw-bold listBtn" data-bs-toggle="modal"
-                      data-bs-target="#newKeep">New
-                      Keep</button></li>
-                  <li>
-                    <div class="listDiv"></div>
+            <div class="col-3">
+              <div class="dropdown text-center justify-self-end d-flex" v-if="account?.id == activeVault?.creatorId">
+                <span class="ms-xl-2 ms-0 ps-lg-5 ps-md-4 ps-sm-5 ps-4 fw-bold fs-3 no-select" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  ...
+                </span>
+
+                <ul class="dropdown-menu bg-grey border-dark border-3 p-1 elevation-5 no-select text-center">
+                  <li><button class="btn dropdown-item fw-bold listBtn" @click.stop="deleteVault()">Delete Vault</button>
                   </li>
-                  <li><button class="btn dropdown-item pt-2 fw-bold listBtn" data-bs-toggle="modal"
-                      data-bs-target="#newVault">New
-                      Vault</button></li>
                 </ul>
 
               </div>
             </div>
 
           </section>
-          <h1 class="mt-2">{{ activeVault?.creator.name }}</h1>
-          <span class="rounded bg-primary p-1">{{ keeps?.length }} Keeps</span>
+          <span class="keepCount bg-primary p-1 px-3 elevation-1 fs-3">{{ keeps?.length }} Keeps</span>
         </div>
       </section>
 
@@ -55,6 +48,7 @@
 
         </section>
       </div>
+      <br>
 
 
     </div>
@@ -70,6 +64,7 @@ import { keepsService } from '../services/KeepsService';
 import BasicKeepCard from '../components/BasicKeepCard.vue'
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop';
+import { router } from '../router';
 
 export default {
   setup() {
@@ -106,15 +101,16 @@ export default {
     }
     return {
       route,
-      keeps: computed(() => AppState.keeps),
+      keeps: computed(() => AppState.vaultedKeeps),
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
 
 
-      async deleteVault(vaultId) {
+      async deleteVault() {
         try {
           if (await Pop.confirm("Are you sure you want to Delete This Vault?")) {
-            await vaultsService.deleteVault(vaultId);
+            await vaultsService.deleteVault(route.params.vaultId);
+            router.push({ name: 'Account', params: { accountId: AppState.account.id } })
             Pop.toast("Your Vault was Successfully Deleted")
           }
         } catch (error) {
@@ -128,14 +124,25 @@ export default {
 
 
 <style lang="scss" scoped>
+.keepCount {
+  border-radius: 10px;
+  position: relative;
+  bottom: 50px;
+}
+
 .profileArea {
   height: 45vh;
+  position: relative;
 }
 
 .coverImg {
   height: 30vh;
-  width: 100%;
+  width: 70%;
   object-position: center;
+}
+
+.fitImg {
+  height: 30vh;
 }
 
 @media(min-width: 1200px) {
@@ -157,6 +164,12 @@ export default {
     columns: 2;
     column-gap: 35px;
   }
+
+  .coverImg {
+    height: 30vh;
+    width: 100%;
+    object-position: center;
+  }
 }
 
 .mason {
@@ -166,6 +179,10 @@ export default {
 
 .movePic {
   position: relative;
-  bottom: 60px;
+  bottom: 120px;
+}
+
+.short {
+  max-height: 15vh;
 }
 </style>
