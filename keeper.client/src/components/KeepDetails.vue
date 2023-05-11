@@ -32,7 +32,8 @@
             <button type="submit" class="btn bg-secondary px-2 py-0 fw-bold ms-2">Save</button>
           </form>
 
-          <router-link class="hovEffect" :to="{ name: page, params: paramId }">
+          <router-link :title="`Go to ${keep?.creator.name}'s Page`" class="hovEffect"
+            :to="{ name: page, params: paramId }">
             <div class="creator align-items-center p-2" data-bs-dismiss="modal" aria-label="Close">
               <img :title="keep?.creator.name" :src="keep?.creator.picture" height="50" class="rounded-circle creatorImg">
               <h6 class="text-end">{{ keep?.creator.name }}</h6>
@@ -54,6 +55,7 @@ import { AppState } from '../AppState';
 import Pop from '../utils/Pop';
 import { logger } from '../utils/Logger';
 import { vaultsService } from '../services/VaultsService';
+import { accountService } from '../services/AccountService';
 
 export default {
 
