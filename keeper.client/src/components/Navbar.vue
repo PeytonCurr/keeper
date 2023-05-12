@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-4 d-flex align-items-center justify-content-center py-2">
-      <img alt="logo" src="../assets/img/Keepr logo.png" height="60" />
+      <img alt="logo" src="../assets/img/Keeprlogo.png" height="60" />
     </div>
 
     <div class="col-4 d-flex align-items-center justify-content-end">
