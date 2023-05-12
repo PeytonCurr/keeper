@@ -93,7 +93,7 @@
 
 
 <script lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { keepsService } from '../services/KeepsService';
 import Pop from '../utils/Pop';
@@ -112,6 +112,12 @@ export default {
       getProfileKeeps();
       getMyVaults();
     });
+
+    watchEffect(() => {
+      if (AppState.account.id) {
+        selectable.value = { ...AppState.account }
+      }
+    })
     async function getProfileKeeps() {
       try {
         await keepsService.getProfileKeeps(route.params.accountId);
