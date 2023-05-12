@@ -60,6 +60,7 @@ export default {
   height: fit-content;
   position: fixed;
   bottom: 0px;
+  width: 100%;
 }
 
 .keepFont {
