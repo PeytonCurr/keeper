@@ -5,7 +5,7 @@
   <main class="container-fluid px-md-5">
     <router-view />
   </main>
-  <footer class="foot sticky-bottom">
+  <footer class="foot">
     <Footbar />
   </footer>
 
@@ -58,6 +58,8 @@ export default {
 
 .foot {
   height: fit-content;
+  position: fixed;
+  bottom: 0px;
 }
 
 .keepFont {
