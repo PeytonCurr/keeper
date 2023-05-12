@@ -48,11 +48,19 @@ export default {
   header {
     display: none;
   }
+
+  main {
+    margin-bottom: 6em;
+  }
 }
 
 @media (min-width: 768px) {
   footer {
     display: none;
+  }
+
+  main {
+    margin-bottom: 0em;
   }
 }
 
