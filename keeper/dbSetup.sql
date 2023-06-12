@@ -1,3 +1,5 @@
+-- Active: 1686606273564@@peyton-west-1.c81ovpu4pgjf.us-west-2.rds.amazonaws.com@3306@peytonsDB
+
 CREATE TABLE
     IF NOT EXISTS accounts(
         id VARCHAR(255) NOT NULL primary key,
@@ -48,13 +50,22 @@ CREATE TABLE
         FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
 
-SELECT
-    k.*,
-    COUNT(vk.keepId) AS kept,
-    vk.id AS VaultKeepId,
-    acct.*
-FROM keeps k
-    JOIN accounts acct ON acct.id = k.creatorId
-    LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
-WHERE vk.vaultId = 1
-GROUP BY (k.id)
+-- SELECT
+
+--     k.*,
+
+--     COUNT(vk.keepId) AS kept,
+
+--     vk.id AS VaultKeepId,
+
+--     acct.*
+
+-- FROM keeps k
+
+--     JOIN accounts acct ON acct.id = k.creatorId
+
+--     LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+
+-- WHERE vk.vaultId = 1
+
+-- GROUP BY (k.id)
