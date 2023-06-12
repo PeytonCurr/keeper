@@ -23,25 +23,20 @@ values
     return vkData;
   }
 
-  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
+  internal VaultKeep GetOne(int vaultKeepId)
   {
     string sql = @"
-  SELECT
-  k.*,
-  COUNT(vk.keepId) AS kept,
-  vk.id AS VaultKeepId,
-  acct.*
-  FROM keeps k
-  JOIN accounts acct ON acct.id = k.creatorId
-  LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
-  WHERE vk.vaultId = @vaultId
-  GROUP BY (k.id)
+SELECT
+*
+FROM vaultKeeps
+WHERE id = @vaultKeepId
 ;";
-    List<VaultedKeep> keeps = _db.Query<VaultedKeep, Account, VaultedKeep>(sql, (k, acct) =>
-    {
-      k.Creator = acct;
-      return k;
-    }, new { vaultId }).ToList();
-    return keeps;
+    VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { vaultKeepId }).FirstOrDefault();
+    return vaultKeep;
+  }
+  internal void DeleteVaultKeep(int vaultKeepId)
+  {
+    string sql = @"DELETE FROM vaultKeeps WHERE id = @vaultKeepId LIMIT 1;";
+    _db.Execute(sql, new { vaultKeepId });
   }
 }

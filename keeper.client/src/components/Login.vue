@@ -1,30 +1,34 @@
 <template>
   <span class="navbar-text">
-    <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
-      v-if="!user.isAuthenticated">
+    <button class="btn bg-secondary px-2 py-0 fw-bold" @click="login" v-if="!user.isAuthenticated">
       Login
     </button>
     <div v-else>
-      <div class="dropdown dropstart my-2 my-lg-0">
-        <div type="button" class="bg-dark border-0 selectable no-select" data-bs-toggle="dropdown"
-          aria-expanded="false">
+      <div class="dropdown-center my-2 my-lg-0">
+        <div type="button" class="bg-light border-0 no-select" data-bs-toggle="dropdown" aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
+            <img :src="account.picture || user.picture" alt="account photo" height="45"
+              class="rounded-circle selectable" />
           </div>
         </div>
-        <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">
-          <div class="list-group">
-            <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item dropdown-item list-group-item-action">
-                Manage Account
-              </div>
+
+
+        <ul class="dropdown-menu p-0 bg-grey border-dark border-3" aria-labelledby="authDropdown">
+          <li>
+            <router-link :to="{ name: 'Account', params: { accountId: account?.id } }" v-if="account?.id">
+              <button class="btn dropdown-item fw-bold listBtn">Manage Account</button>
             </router-link>
-            <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
+          </li>
+
+          <li>
+            <div class="listDiv"></div>
+          </li>
+
+          <li><button class="btn dropdown-item fw-bold listBtn" @click="logout">
               <i class="mdi mdi-logout"></i>
-              logout
-            </div>
-          </div>
-        </div>
+              logout</button></li>
+        </ul>
+
       </div>
     </div>
   </span>
@@ -51,4 +55,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.listDiv {
+  border: 1px solid
+}
+
+.listBtn:hover {
+  filter: brightness(1.80);
+  filter: drop-shadow(1px 0px);
+}
+
+.listBtn:active {
+  transform: scale(.90);
+}
 </style>

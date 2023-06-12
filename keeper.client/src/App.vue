@@ -1,19 +1,32 @@
 <template>
-  <header>
+  <header class="sticky-top">
     <Navbar />
   </header>
-  <main>
+  <main class="container-fluid px-md-5">
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+  <footer class="foot">
+    <Footbar />
   </footer>
+
+  <Modal id="newKeep" size="modal-md">
+    <template #content>
+      <CreateKeep />
+    </template>
+  </Modal>
+
+  <Modal id="newVault" size="modal-md">
+    <template #content>
+      <CreateVault />
+    </template>
+  </Modal>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import Footbar from './components/Footbar.vue'
 
 export default {
   setup() {
@@ -21,20 +34,44 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, Footbar }
 }
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
-:root{
+:root {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+@media (max-width: 768px) {
+  header {
+    display: none;
+  }
 
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
+  main {
+    margin-bottom: 6em;
+  }
+}
+
+@media (min-width: 768px) {
+  footer {
+    display: none;
+  }
+
+  main {
+    margin-bottom: 0em;
+  }
+}
+
+.foot {
+  height: fit-content;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.keepFont {
+  font-family: 'Shrikhand', cursive;
 }
 </style>

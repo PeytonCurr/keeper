@@ -20,7 +20,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      vaultData.CreatorId = userInfo.Id;
+      vaultData.CreatorId = userInfo?.Id;
       Vault vault = _vaultsService.CreateVault(vaultData);
       vault.Creator = userInfo;
       return Ok(vault);
@@ -32,11 +32,13 @@ public class VaultsController : ControllerBase
   }
 
   [HttpGet("{vaultId}")]
-  public ActionResult<Vault> GetOne(int vaultId)
+  public async Task<ActionResult<Vault>> GetOne(int vaultId)
   {
     try
     {
-      Vault vault = _vaultsService.GetOne(vaultId);
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      Vault vault = _vaultsService.GetOne(vaultId, userInfo?.Id);
+      if (vault.IsPrivate == true && userInfo == null) throw new Exception("You are not Authorized to Get this Private Vault");
       return Ok(vault);
     }
     catch (Exception e)
@@ -51,7 +53,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      vaultData.CreatorId = userInfo.Id;
+      vaultData.CreatorId = userInfo?.Id;
       vaultData.Id = vaultId;
       Vault vault = _vaultsService.EditVault(vaultData);
       return Ok(vault);
@@ -68,7 +70,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      string message = _vaultsService.DeleteVault(vaultId, userInfo.Id);
+      string message = _vaultsService.DeleteVault(vaultId, userInfo?.Id);
       return Ok(message);
     }
     catch (Exception e)
@@ -83,7 +85,7 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-      List<VaultedKeep> keeps = _vaultsService.GetKeepsInVault(vaultId, userInfo.Id);
+      List<VaultedKeep> keeps = _vaultsService.GetKeepsInVault(vaultId, userInfo?.Id);
       return Ok(keeps);
     }
     catch (Exception e)

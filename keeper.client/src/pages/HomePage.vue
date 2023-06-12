@@ -1,23 +1,59 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <!-- SECTION KeepsArea -->
+  <section class="p-md-5 p-1 masonry">
+
+    <!-- STUB KeepCard -->
+    <div class="mason elevation-5 rounded" v-for="keep in keeps" :key="keep?.id">
+      <KeepCard :keep="keep" />
     </div>
-  </div>
+
+  </section>
 </template>
 
 <script>
+import { computed, onMounted, watchEffect } from "vue";
+import { keepsService } from "../services/KeepsService.js"
+import { AppState } from "../AppState.js";
+import KeepCard from "../components/KeepCard.vue";
+import CreateKeep from "../components/CreateKeep.vue";
+import KeepDetails from "../components/KeepDetails.vue";
+import CreateVault from "../components/CreateVault.vue";
+import Pop from "../utils/Pop.js";
+import { logger } from "../utils/Logger.js";
+import { vaultsService } from "../services/VaultsService.js";
+
 export default {
   setup() {
-    return {}
-  }
+    onMounted(() => {
+      getKeeps()
+    })
+
+    watchEffect(() => {
+      if (AppState.account?.id) {
+        getMyVaults()
+      }
+    })
+
+    async function getMyVaults() {
+      try {
+        await vaultsService.getMyVaults()
+      } catch (error) {
+        Pop.error(error);
+      }
+    }
+    async function getKeeps() {
+      try {
+        await keepsService.getKeeps();
+      }
+      catch (error) {
+        Pop.error(error);
+      }
+    }
+    return {
+      keeps: computed(() => AppState.keeps),
+    };
+  },
+  components: { KeepCard, CreateKeep, KeepDetails, CreateVault }
 }
 </script>
 
@@ -40,5 +76,31 @@ export default {
       object-position: center;
     }
   }
+}
+
+@media (min-width: 1200px) {
+  .masonry {
+    columns: 4;
+    column-gap: 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .masonry {
+    columns: 3;
+    column-gap: 40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .masonry {
+    columns: 2;
+    column-gap: 35px;
+  }
+}
+
+.mason {
+  margin-bottom: 15px;
+  break-inside: avoid;
 }
 </style>

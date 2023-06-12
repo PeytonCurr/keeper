@@ -31,11 +31,12 @@ public class KeepsService
   internal Keep EditKeep(Keep keepData)
   {
     Keep keep = GetOne(keepData.Id);
-    if (keep.CreatorId != keepData.CreatorId) throw new Exception($"You are not authorized to edit the keep with the name: {keep.Name}");
 
+    if (keep.CreatorId != keepData.CreatorId) throw new Exception($"You are not Authorized to Edit the Keep: {keep.Name}");
     keep.Name = keepData.Name ?? keep.Name;
     keep.Description = keepData.Description ?? keep.Name;
     keep.Img = keepData.Img ?? keep.Img;
+
 
     _repo.EditKeep(keep);
 
@@ -48,5 +49,26 @@ public class KeepsService
     if (keep.CreatorId != userId) throw new Exception($"You are not authorized to Delete the keep with the name: {keep.Name}");
     _repo.DeleteKeep(keepId);
     return $"You have deleted keep: {keep.Name}";
+  }
+
+  internal List<Keep> GetUsersKeeps(string profileId)
+  {
+    List<Keep> keeps = _repo.GetUsersKeeps(profileId);
+    if (keeps == null) throw new Exception("This User does not have any Keeps");
+    return keeps;
+  }
+
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
+  {
+    List<VaultedKeep> keeps = _repo.GetKeepsInVault(vaultId);
+    return keeps;
+  }
+
+  internal Keep increaseViews(int keepId)
+  {
+    Keep keepData = GetOne(keepId);
+    keepData.Views++;
+    Keep keep = _repo.increaseViews(keepData);
+    return keep;
   }
 }

@@ -13,9 +13,9 @@ public class VaultsRepository
   {
     string sql = @"
 INSERT INTO vaults
-  (name, description, img, creatorId)
+  (name, description, img, isPrivate, creatorId)
 values
-  (@name, @description, @img, @creatorId);
+  (@name, @description, @img, @IsPrivate, @creatorId);
   SELECT LAST_INSERT_ID()
 ;";
 
@@ -58,5 +58,42 @@ WHERE id = @id
   {
     string sql = @"DELETE FROM vaults WHERE id = @vaultId LIMIT 1;";
     _db.Execute(sql, new { vaultId });
+  }
+
+  internal List<Vault> GetUsersVaults(string profileId)
+  {
+    string sql = @"
+SELECT
+profile.*,
+v.*
+FROM accounts profile
+JOIN vaults v ON v.creatorId = profile.id
+WHERE profile.id = @profileId
+;";
+    List<Vault> vaults = _db.Query<Profile, Vault, Vault>(sql, (profile, v) =>
+    {
+      v.Creator = profile;
+      return v;
+    }, new { profileId }).ToList();
+    return vaults;
+  }
+
+  internal List<Vault> GetMyVaults(string userId)
+  {
+    string sql = @"
+    SELECT
+acct.*,
+v.*
+    FROM accounts acct
+    JOIN vaults v ON v.creatorId = acct.id
+    WHERE acct.id = @userId
+    ;";
+
+    List<Vault> vaults = _db.Query<Account, Vault, Vault>(sql, (acct, v) =>
+    {
+      v.Creator = acct;
+      return v;
+    }, new { userId }).ToList();
+    return vaults;
   }
 }

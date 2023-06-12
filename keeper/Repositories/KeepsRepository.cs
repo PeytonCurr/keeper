@@ -83,4 +83,61 @@ WHERE id = @Id
     string sql = @"DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
     _db.Execute(sql, new { keepId });
   }
+
+  internal List<Keep> GetUsersKeeps(string profileId)
+  {
+    string sql = @"
+SELECT
+profile.*,
+k.*,
+COUNT(vk.keepId) AS Kept
+FROM accounts profile
+JOIN keeps k ON k.creatorId = profile.id
+LEFT JOIN vaultKeeps vk ON vk.keepId = k.id
+WHERE profile.id = @profileId
+GROUP BY (k.id)
+;";
+    List<Keep> keeps = _db.Query<Profile, Keep, Keep>(sql, (profile, k) =>
+    {
+      k.Creator = profile;
+      return k;
+    }, new { profileId }).ToList();
+    return keeps;
+  }
+
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
+  {
+    string sql = @"
+SELECT
+    vk.*,
+    vaultedKeep.*,
+    COUNT(vkv.keepId) AS kept,
+    acct.*
+FROM vaultKeeps vk
+    JOIN keeps vaultedKeep ON vk.keepId = vaultedKeep.id
+    LEFT JOIN vaultKeeps vkv ON vkv.keepId = vaultedKeep.id
+    JOIN accounts acct ON acct.id = vaultedKeep.creatorId
+WHERE vk.vaultId = @vaultId
+GROUP BY (vk.id)
+;";
+    List<VaultedKeep> keeps = _db.Query<VaultKeep, VaultedKeep, Account, VaultedKeep>(sql, (vk, vaultedKeep, acct) =>
+    {
+      vaultedKeep.Creator = acct;
+      vaultedKeep.VaultKeepId = vk.Id;
+      return vaultedKeep;
+    }, new { vaultId }).ToList();
+    return keeps;
+  }
+
+  internal Keep increaseViews(Keep keepData)
+  {
+    string sql = @"
+UPDATE keeps
+SET
+views = @views
+WHERE id = @Id
+;";
+    _db.Execute(sql, keepData);
+    return keepData;
+  }
 }
