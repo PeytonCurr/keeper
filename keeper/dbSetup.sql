@@ -1,4 +1,4 @@
--- Active: 1686606273564@@peyton-west-1.c81ovpu4pgjf.us-west-2.rds.amazonaws.com@3306@peytonsDB
+-- Active: 1686607896649@@peyton-west-1.c81ovpu4pgjf.us-west-2.rds.amazonaws.com@3306@peytonsDB
 
 CREATE TABLE
     IF NOT EXISTS accounts(
