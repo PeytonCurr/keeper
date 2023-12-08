@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-12 mb-3">
                       <label class="keepFont" for="picture">Picture</label>
-                      <input type="url" class="form-control border-bottom border-dark" required id="picture"
+                      <input type="text" class="form-control border-bottom border-dark" required id="picture"
                         v-model="selectable.picture" placeholder="Enter Picture" maxlength="500">
                     </div>
                     <div class="col-12 mb-3">
