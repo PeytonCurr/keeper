@@ -3,7 +3,7 @@
 
     <div class="col-4 d-flex justify-content-start p-3">
       <router-link class="d-flex" :to="{ name: 'Home' }">
-        <img alt="logo" src="../assets/img/Keeprlogo.png" height="45" />
+        <img alt="logo" src="../assets/img/ProfilePicforKeeper.jpg" height="45" />
       </router-link>
     </div>
 
